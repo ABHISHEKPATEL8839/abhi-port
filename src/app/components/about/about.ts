@@ -21,32 +21,50 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               Whether architecting secure database index collections in Cloud Firestore, orchestrating lazy-loaded component routes, or tuning CSS layout paint loops, I strive to write elegant, clean, and maintainable code.
             </p>
             
+            <!-- Interactive Dev Focus Badge Pills -->
+            <div class="d-flex flex-wrap gap-2 mb-4">
+              <span class="focus-pill"><i class="bi bi-cpu text-cyan me-1"></i> Systems Architecture</span>
+              <span class="focus-pill"><i class="bi bi-lightning-charge text-warning me-1"></i> Real-time Sync</span>
+              <span class="focus-pill"><i class="bi bi-palette text-secondary me-1"></i> Premium Motion UI</span>
+            </div>
+
             <div class="d-flex align-items-center gap-3 mt-4">
-              <a href="#contact" class="btn btn-glow-primary py-3 px-4">Get In Touch</a>
-              <a href="#projects" class="btn btn-glass py-3 px-4">Explore Projects</a>
+              <a href="#contact" class="btn btn-glow-primary py-3 px-4">
+                Get In Touch <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+              <a href="#projects" class="btn btn-glass py-3 px-4">
+                Explore Projects <i class="bi bi-folder2-open ms-1"></i>
+              </a>
             </div>
           </div>
           
-          <!-- Statistics Dashboard grid -->
+          <!-- Statistics Dashboard grid & Interactive Bio Widget -->
           <div class="col-lg-5" appScrollReveal [revealClass]="'reveal reveal-right'">
-            <div class="row g-4">
-              <div class="col-6" *ngFor="let stat of stats; let i = index">
-                <div class="glass-panel glass-card-hover p-4 text-center">
+            <div class="row g-4 mb-4">
+              <div class="col-6" *ngFor="let stat of stats; let i = index" 
+                   appScrollReveal 
+                   [revealClass]="'reveal reveal-scale reveal-delay-' + (i + 1)">
+                <div class="glass-panel glass-card-hover p-4 text-center stat-card">
                   <div class="stat-icon mb-3">
                     <i [class]="stat.icon"></i>
                   </div>
-                  <h3 class="display-6 fw-extrabold text-light mb-1">{{ stat.value }}</h3>
-                  <p class="text-muted font-body small mb-0">{{ stat.label }}</p>
+                  <h3 class="display-6 fw-extrabold text-light mb-1 stat-value">{{ stat.value }}</h3>
+                  <p class="text-muted font-body small mb-0 fw-medium">{{ stat.label }}</p>
                 </div>
               </div>
             </div>
             
-            <!-- Quick Quote Card -->
-            <div class="glass-panel p-4 mt-4" appScrollReveal [revealClass]="'reveal reveal-scale'" [threshold]="0.1">
-              <p class="fst-italic text-muted font-body mb-2">
-                "Writing code is not just about making things work, it is about crafting digital solutions that feel completely intuitive and performant."
-              </p>
-              <span class="text-light fw-bold font-heading small">— Abhishek Patel</span>
+            <!-- Quick Quote Card with Ambient Glow -->
+            <div class="glass-panel quote-card p-4 mt-4" appScrollReveal [revealClass]="'reveal reveal-flip'" [threshold]="0.1">
+              <div class="d-flex gap-3 align-items-start">
+                <i class="bi bi-quote fs-1 text-cyan quote-mark"></i>
+                <div>
+                  <p class="fst-italic text-light opacity-90 font-body mb-2 small">
+                    "Writing code is not just about making things work, it is about crafting digital solutions that feel completely intuitive and performant."
+                  </p>
+                  <span class="text-gradient-primary fw-bold font-heading small">— Abhishek Patel</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -58,11 +76,59 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       letter-spacing: 0.1em;
     }
     
+    .stat-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .stat-card:hover .stat-icon i {
+      transform: scale(1.2) rotate(8deg);
+    }
+
     .stat-icon {
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-value {
+      text-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .focus-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      color: var(--color-text-muted);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .focus-pill:hover {
+      background: rgba(99, 102, 241, 0.12);
+      border-color: var(--color-primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .quote-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(99, 102, 241, 0.1) 100%) !important;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+
+    .quote-mark {
+      line-height: 1;
+      opacity: 0.8;
+      transition: transform 0.3s ease;
+    }
+
+    .quote-card:hover .quote-mark {
+      transform: scale(1.15) rotate(-5deg);
+      color: var(--color-secondary) !important;
     }
   `]
 })
@@ -74,3 +140,4 @@ export class AboutComponent {
     { value: '24/7', label: 'Tech Learner', icon: 'bi-cpu' }
   ];
 }
+

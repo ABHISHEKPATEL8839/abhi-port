@@ -40,10 +40,10 @@ interface TimelineEvent {
             <!-- Left Side / Right Side placement based on index -->
             <div class="col-lg-5" [ngClass]="isOdd ? 'order-lg-3' : 'order-lg-1 text-lg-end'">
               <div class="glass-panel p-4 timeline-card border-glow">
-                <span class="badge bg-primary-gradient mb-2 font-heading">{{ item.year }}</span>
+                <span class="badge bg-primary-gradient mb-2 font-heading year-badge">{{ item.year }}</span>
                 <h3 class="h5 font-heading text-light mb-1">{{ item.title }}</h3>
-                <h6 class="text-cyan font-heading small mb-3">{{ item.company }}</h6>
-                <p class="text-muted font-body small mb-4">{{ item.description }}</p>
+                <h6 class="text-cyan font-heading small mb-3 fw-semibold">{{ item.company }}</h6>
+                <p class="text-muted font-body small mb-4 opacity-90">{{ item.description }}</p>
                 
                 <div class="d-flex flex-wrap gap-2 justify-content-start" [ngClass]="{'justify-content-lg-end': isEven}">
                   <span class="timeline-tag" *ngFor="let s of item.skills">{{ s }}</span>
@@ -51,7 +51,7 @@ interface TimelineEvent {
               </div>
             </div>
             
-            <!-- Center Circle -->
+            <!-- Center Circle Node -->
             <div class="col-lg-2 order-lg-2 d-none d-lg-flex justify-content-center">
               <div class="timeline-node">
                 <i [class]="item.icon"></i>
@@ -72,28 +72,30 @@ interface TimelineEvent {
       height: 4px;
       background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
       border-radius: 2px;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
     }
 
     .timeline-container {
       position: relative;
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
     }
 
     .timeline-line {
       position: absolute;
-      width: 2px;
-      background: linear-gradient(180deg, var(--color-primary), var(--color-secondary), transparent);
+      width: 3px;
+      background: linear-gradient(180deg, var(--color-primary), var(--color-cyan), var(--color-secondary), transparent);
       top: 0;
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      opacity: 0.3;
+      opacity: 0.45;
+      box-shadow: 0 0 12px var(--color-primary);
     }
 
     .timeline-node {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: var(--bg-slate);
       border: 3px solid var(--color-primary);
@@ -101,29 +103,44 @@ interface TimelineEvent {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       z-index: 10;
-      box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
-      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .timeline-node i {
+      transition: transform 0.3s ease;
     }
 
     .timeline-row:hover .timeline-node {
       border-color: var(--color-secondary);
-      box-shadow: 0 0 20px rgba(217, 70, 239, 0.6);
-      transform: scale(1.1);
+      color: var(--color-secondary);
+      box-shadow: 0 0 25px rgba(217, 70, 239, 0.7);
+      transform: scale(1.15) rotate(360deg);
     }
 
     .timeline-card {
       position: relative;
       background: rgba(15, 23, 42, 0.55);
       border: 1px solid var(--border-glass);
-      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.35s ease;
     }
 
     .timeline-card:hover {
       border-color: var(--color-primary);
-      box-shadow: var(--shadow-glow);
-      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow), 0 10px 30px rgba(0, 0, 0, 0.4);
+      transform: translateY(-5px);
+    }
+
+    .year-badge {
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+
+    .timeline-card:hover .year-badge {
+      transform: scale(1.05);
     }
 
     .bg-primary-gradient {
@@ -131,15 +148,25 @@ interface TimelineEvent {
       font-weight: 600;
       border: none;
       font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 50px;
     }
 
     .timeline-tag {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-glass);
       color: var(--color-text-muted);
       border-radius: 4px;
-      padding: 2px 6px;
-      font-size: 0.7rem;
+      padding: 3px 8px;
+      font-size: 0.73rem;
+      transition: all 0.25s ease;
+    }
+
+    .timeline-tag:hover {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: var(--color-cyan);
+      color: #ffffff;
+      transform: translateY(-2px);
     }
 
     .text-cyan {
@@ -199,3 +226,4 @@ export class ExperienceComponent {
     }
   ];
 }
+

@@ -22,30 +22,32 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 
         <div class="row justify-content-center">
           <div class="col-xl-10">
-            <div class="glass-panel p-0 overflow-hidden" appScrollReveal [revealClass]="'reveal reveal-scale'" [threshold]="0.08">
+            <div class="glass-panel p-0 overflow-hidden contact-panel" appScrollReveal [revealClass]="'reveal reveal-scale'" [threshold]="0.08">
               <div class="row g-0">
                 <!-- Info Side -->
                 <div class="col-lg-5 info-panel p-5 d-flex flex-column justify-content-between">
                   <div>
-                    <h3 class="h4 font-heading text-light mb-4">Contact Information</h3>
+                    <h3 class="h4 font-heading text-light mb-4 d-flex align-items-center">
+                      <i class="bi bi-chat-square-text text-cyan me-2"></i> Contact Information
+                    </h3>
                     <p class="text-muted font-body small mb-5">
                       Have an exciting project, a role opportunity, or just want to chat about web technologies? Drop me a message!
                     </p>
                     
                     <div class="contact-methods d-flex flex-column gap-4">
-                      <div class="d-flex align-items-center gap-3">
+                      <div class="d-flex align-items-center gap-3 contact-method-item">
                         <div class="contact-icon">
                           <i class="bi bi-envelope-at-fill"></i>
                         </div>
                         <div>
                           <h6 class="font-heading text-light mb-0 small">Email</h6>
-                          <a href="mailto:abhishekpatel71773@gmail.com" class="text-muted font-body small text-decoration-none">
+                          <a href="mailto:abhishekpatel71773@gmail.com" class="text-muted font-body small text-decoration-none contact-link">
                             abhishekpatel71773&#64;gmail.com
                           </a>
                         </div>
                       </div>
 
-                      <div class="d-flex align-items-center gap-3">
+                      <div class="d-flex align-items-center gap-3 contact-method-item">
                         <div class="contact-icon">
                           <i class="bi bi-geo-alt-fill"></i>
                         </div>
@@ -55,13 +57,13 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                         </div>
                       </div>
                       
-                      <div class="d-flex align-items-center gap-3">
+                      <div class="d-flex align-items-center gap-3 contact-method-item">
                         <div class="contact-icon">
                           <i class="bi bi-github"></i>
                         </div>
                         <div>
                           <h6 class="font-heading text-light mb-0 small">GitHub</h6>
-                          <a href="https://github.com/ABHISHEKPATEL8839" target="_blank" class="text-muted font-body small text-decoration-none">
+                          <a href="https://github.com/ABHISHEKPATEL8839" target="_blank" class="text-muted font-body small text-decoration-none contact-link">
                             github.com/ABHISHEKPATEL8839
                           </a>
                         </div>
@@ -70,10 +72,10 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                   </div>
 
                   <div class="mt-5">
-                    <h5 class="h6 font-heading text-light mb-3 text-uppercase small">Professional Focus</h5>
+                    <h5 class="h6 font-heading text-light mb-3 text-uppercase small letter-spacing-1">Professional Focus</h5>
                     <div class="d-flex flex-wrap gap-2">
-                      <span class="badge-focus">Angular</span>
-                      <span class="badge-focus">Firebase</span>
+                      <span class="badge-focus">Angular 22</span>
+                      <span class="badge-focus">Firebase Realtime</span>
                       <span class="badge-focus">TypeScript</span>
                       <span class="badge-focus">Full-Stack</span>
                     </div>
@@ -81,8 +83,10 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                 </div>
 
                 <!-- Form Side -->
-                <div class="col-lg-7 p-5">
-                  <h3 class="h4 font-heading text-light mb-4">Send Message</h3>
+                <div class="col-lg-7 p-5 form-panel">
+                  <h3 class="h4 font-heading text-light mb-4 d-flex align-items-center">
+                    <i class="bi bi-send-fill text-gradient-primary me-2"></i> Send Message
+                  </h3>
                   
                   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
                     <!-- Name Input -->
@@ -93,7 +97,9 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                              class="form-input-custom" 
                              placeholder="e.g. Rahul Sharma"
                              [ngClass]="{'input-error': isFieldInvalid('name')}">
-                      <div class="error-msg" *ngIf="isFieldInvalid('name')">Name is required.</div>
+                      <div class="error-msg" *ngIf="isFieldInvalid('name')">
+                        <i class="bi bi-exclamation-circle me-1"></i> Name is required.
+                      </div>
                     </div>
 
                     <!-- Email Input -->
@@ -105,6 +111,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                              placeholder="e.g. rahul@example.com"
                              [ngClass]="{'input-error': isFieldInvalid('email')}">
                       <div class="error-msg" *ngIf="isFieldInvalid('email')">
+                        <i class="bi bi-exclamation-circle me-1"></i>
                         {{ contactForm.get('email')?.hasError('required') ? 'Email is required.' : 'Enter a valid email address.' }}
                       </div>
                     </div>
@@ -117,7 +124,9 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                              class="form-input-custom" 
                              placeholder="Project Opportunity"
                              [ngClass]="{'input-error': isFieldInvalid('subject')}">
-                      <div class="error-msg" *ngIf="isFieldInvalid('subject')">Subject is required.</div>
+                      <div class="error-msg" *ngIf="isFieldInvalid('subject')">
+                        <i class="bi bi-exclamation-circle me-1"></i> Subject is required.
+                      </div>
                     </div>
 
                     <!-- Message Input -->
@@ -129,24 +138,24 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                                 placeholder="Details about your inquiry..."
                                 [ngClass]="{'input-error': isFieldInvalid('message')}"></textarea>
                       <div class="error-msg" *ngIf="isFieldInvalid('message')">
-                        Message must be at least 10 characters long.
+                        <i class="bi bi-exclamation-circle me-1"></i> Message must be at least 10 characters long.
                       </div>
                     </div>
 
                     <!-- Alert message boxes -->
                     <div class="alert-box" *ngIf="submitStatus" [ngClass]="submitStatus">
                       <div class="d-flex align-items-center gap-2">
-                        <i class="bi" [ngClass]="submitStatus === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'"></i>
-                        <span class="small font-body">{{ statusMessage }}</span>
+                        <i class="bi fs-5" [ngClass]="submitStatus === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'"></i>
+                        <span class="small font-body fw-medium">{{ statusMessage }}</span>
                       </div>
                     </div>
 
                     <!-- Submit Button -->
                     <button type="submit" 
                             [disabled]="contactForm.invalid || isSubmitting" 
-                            class="btn btn-glow-primary py-3 d-flex justify-content-center align-items-center w-100 mt-2">
+                            class="btn btn-glow-primary py-3 d-flex justify-content-center align-items-center w-100 mt-2 submit-btn">
                       <span *ngIf="!isSubmitting" class="d-flex align-items-center">
-                        Send Message <i class="bi bi-send ms-2"></i>
+                        Send Message <i class="bi bi-send ms-2 send-icon"></i>
                       </span>
                       <span *ngIf="isSubmitting" class="d-flex align-items-center">
                         Sending... <div class="spinner-border spinner-border-sm ms-2" role="status"></div>
@@ -167,34 +176,74 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       height: 4px;
       background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
       border-radius: 2px;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+    }
+
+    .contact-panel {
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-glass), 0 0 30px rgba(99, 102, 241, 0.1);
     }
 
     .info-panel {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(7, 9, 19, 0.9) 100%);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(7, 9, 19, 0.95) 100%);
       border-right: 1px solid var(--border-glass);
     }
 
+    .contact-method-item {
+      transition: transform 0.25s ease;
+    }
+
+    .contact-method-item:hover {
+      transform: translateX(5px);
+    }
+
     .contact-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
       color: var(--color-cyan);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-method-item:hover .contact-icon {
+      background: rgba(6, 182, 212, 0.18);
+      border-color: var(--color-cyan);
+      color: #ffffff;
+      transform: scale(1.1) rotate(6deg);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+    }
+
+    .contact-link {
+      transition: color 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--color-cyan) !important;
     }
 
     .badge-focus {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-glass);
       color: var(--color-cyan);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-family: var(--font-heading);
       font-weight: 600;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 50px;
+      transition: all 0.25s ease;
+    }
+
+    .badge-focus:hover {
+      background: rgba(99, 102, 241, 0.12);
+      border-color: var(--color-primary);
+      color: #ffffff;
+      transform: translateY(-2px);
     }
 
     /* Form Custom inputs (Float style) */
@@ -206,8 +255,8 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 
     .form-label-custom {
       position: absolute;
-      left: 12px;
-      top: 14px;
+      left: 14px;
+      top: 15px;
       font-size: 0.9rem;
       color: var(--color-text-muted);
       pointer-events: none;
@@ -217,29 +266,28 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 
     .form-label-custom.active,
     .form-input-custom:focus + .form-label-custom {
-      transform: translateY(-24px) scale(0.85);
+      transform: translateY(-26px) scale(0.85);
       color: var(--color-cyan);
     }
 
-    /* Hide standard placeholders when input is not focused */
     .form-input-custom::placeholder {
       color: transparent;
       transition: color 0.2s ease;
     }
 
     .form-input-custom:focus::placeholder {
-      color: rgba(148, 163, 184, 0.5); /* Show when active */
+      color: rgba(148, 163, 184, 0.5);
     }
 
     .form-input-custom {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-glass);
       color: #ffffff;
-      padding: 12px 14px;
-      border-radius: 8px;
+      padding: 14px 16px;
+      border-radius: 10px;
       font-family: var(--font-body);
       font-size: 0.95rem;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       margin-top: 5px;
     }
 
@@ -247,7 +295,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       outline: none;
       border-color: var(--color-primary);
       background: rgba(255, 255, 255, 0.06);
-      box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
     }
 
     .textarea-custom {
@@ -255,33 +303,56 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
 
     .input-error {
-      border-color: rgba(239, 68, 68, 0.5) !important;
+      border-color: rgba(239, 68, 68, 0.6) !important;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.2) !important;
     }
 
     .error-msg {
       color: #f87171;
-      font-size: 0.75rem;
-      margin-top: 4px;
+      font-size: 0.78rem;
+      margin-top: 5px;
       font-family: var(--font-body);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Alert Boxes CSS with animation behavior */
     .alert-box {
-      border-radius: 8px;
-      padding: 12px 16px;
-      transition: all 0.3s ease;
+      border-radius: 10px;
+      padding: 14px 18px;
+      transition: all 0.35s ease;
+      animation: alertPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes alertPop {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     .alert-box.success {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.25);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
       color: #34d399;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
     }
 
     .alert-box.error {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.25);
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
       color: #f87171;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+    }
+
+    .submit-btn .send-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .submit-btn:hover:not(:disabled) .send-icon {
+      transform: translateX(4px) translateY(-2px);
     }
 
     @media (max-width: 991px) {
@@ -346,3 +417,4 @@ export class ContactComponent implements OnInit {
     }
   }
 }
+

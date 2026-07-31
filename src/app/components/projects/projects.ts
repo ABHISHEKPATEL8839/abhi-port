@@ -35,15 +35,17 @@ interface Project {
           <div class="col-lg-4 col-md-6" *ngFor="let project of projects; let idx = index"
                appScrollReveal 
                [revealClass]="'reveal reveal-scale reveal-delay-' + (idx + 1)">
-            <div class="glass-panel glass-card-hover p-4 h-100 d-flex flex-column justify-content-between relative"
+            <div class="glass-panel glass-card-hover project-card p-4 h-100 d-flex flex-column justify-content-between relative"
                  [style.border-top]="'3px solid ' + project.color">
               <div>
-                <div class="project-icon mb-3" [style.background-color]="project.color + '15'" [style.color]="project.color">
-                  <i [class]="project.icon"></i>
+                <div class="project-icon-wrapper mb-3">
+                  <div class="project-icon" [style.background-color]="project.color + '18'" [style.color]="project.color">
+                    <i [class]="project.icon"></i>
+                  </div>
                 </div>
-                <h3 class="h4 font-heading text-light mb-2">{{ project.title }}</h3>
+                <h3 class="h4 font-heading text-light mb-2 project-title">{{ project.title }}</h3>
                 <h6 class="text-cyan font-heading mb-3 small">{{ project.subtitle }}</h6>
-                <p class="text-muted font-body mb-4 small">{{ project.summary }}</p>
+                <p class="text-muted font-body mb-4 small opacity-90">{{ project.summary }}</p>
               </div>
 
               <div>
@@ -51,9 +53,9 @@ interface Project {
                   <span class="tag-badge small" *ngFor="let tag of project.tags">{{ tag }}</span>
                 </div>
                 
-                <button class="btn btn-glass w-100 py-2 d-flex align-items-center justify-content-center"
+                <button class="btn btn-glass w-100 py-2 d-flex align-items-center justify-content-center view-btn"
                         (click)="openDialog(project, detailDialog)">
-                  View Architecture <i class="bi bi-info-circle ms-2"></i>
+                  View Architecture <i class="bi bi-arrow-up-right-circle ms-2 view-icon"></i>
                 </button>
               </div>
             </div>
@@ -61,31 +63,31 @@ interface Project {
         </div>
       </div>
 
-      <!-- Native HTML5 Glassmorphic Dialog -->
+      <!-- Native HTML5 Glassmorphic Dialog with Animated Features -->
       <dialog #detailDialog class="glass-dialog">
         <div class="dialog-header p-4 d-flex justify-content-between align-items-center" *ngIf="selectedProject">
           <h3 class="h4 font-heading text-light m-0 d-flex align-items-center">
-            <i [class]="selectedProject.icon + ' me-2'" [style.color]="selectedProject.color"></i>
+            <i [class]="selectedProject.icon + ' me-2 icon-pop'" [style.color]="selectedProject.color"></i>
             {{ selectedProject.title }}
           </h3>
           <button class="close-btn" (click)="closeDialog(detailDialog)">
-            <i class="bi bi-x fs-4"></i>
+            <i class="bi bi-x-lg fs-5"></i>
           </button>
         </div>
         
         <div class="dialog-body p-4 overflow-y-auto" *ngIf="selectedProject">
-          <p class="font-body text-light opacity-90 mb-4">{{ selectedProject.description }}</p>
+          <p class="font-body text-light opacity-90 mb-4 lead fs-6">{{ selectedProject.description }}</p>
           
-          <h4 class="h6 text-cyan font-heading text-uppercase mb-3">Key Implementations</h4>
+          <h4 class="h6 text-cyan font-heading text-uppercase mb-3 letter-spacing-1">Key Technical Implementations</h4>
           <ul class="features-list d-flex flex-column gap-2 mb-4 font-body small text-muted">
-            <li class="d-flex align-items-start" *ngFor="let feature of selectedProject.features">
-              <i class="bi bi-check-circle-fill text-cyan me-2 mt-0.5"></i>
-              <span>{{ feature }}</span>
+            <li class="d-flex align-items-start feature-item" *ngFor="let feature of selectedProject.features">
+              <i class="bi bi-check-circle-fill text-cyan me-2 mt-0.5 check-icon"></i>
+              <span class="text-light opacity-90">{{ feature }}</span>
             </li>
           </ul>
 
-          <div class="d-flex flex-wrap gap-2 mb-4">
-            <span class="tag-badge" *ngFor="let tag of selectedProject.tags">{{ tag }}</span>
+          <div class="d-flex flex-wrap gap-2 mb-2">
+            <span class="tag-badge modal-tag" *ngFor="let tag of selectedProject.tags">{{ tag }}</span>
           </div>
         </div>
 
@@ -104,44 +106,108 @@ interface Project {
       height: 4px;
       background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
       border-radius: 2px;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+    }
+
+    .project-card {
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     
+    .project-icon-wrapper {
+      perspective: 500px;
+    }
+
     .project-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .project-card:hover .project-icon {
+      transform: scale(1.15) rotate(6deg);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
     
     .tag-badge {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-glass);
       color: var(--color-text-muted);
-      border-radius: 4px;
-      padding: 3px 8px;
-      font-size: 0.75rem;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
       font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    .tag-badge:hover {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: var(--color-primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .modal-tag {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: rgba(6, 182, 212, 0.3);
+      color: var(--color-cyan);
     }
     
+    .view-btn .view-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .view-btn:hover .view-icon {
+      transform: translate(2px, -2px) scale(1.15);
+      color: var(--color-cyan);
+    }
+
     .close-btn {
-      background: transparent;
-      border: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--color-text-muted);
-      transition: color 0.2s ease;
+      transition: all 0.25s ease;
       cursor: pointer;
     }
     
     .close-btn:hover {
       color: #ffffff;
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      transform: rotate(90deg);
     }
     
     .features-list {
       list-style: none;
       padding: 0;
       margin: 0;
+    }
+
+    .feature-item {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .feature-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateX(4px);
+    }
+
+    .check-icon {
+      font-size: 1.1rem;
     }
     
     .text-cyan {
@@ -217,3 +283,4 @@ export class ProjectsComponent {
     this.selectedProject = null;
   }
 }
+

@@ -33,25 +33,24 @@ interface SkillCategory {
         <div class="row g-4">
           <div class="col-lg-4" *ngFor="let category of skillCategories; let i = index" 
                appScrollReveal 
-               [revealClass]="'reveal reveal-scale'"
                [revealClass]="i === 0 ? 'reveal reveal-left' : (i === 2 ? 'reveal reveal-right' : 'reveal reveal-scale')">
-            <div class="glass-panel p-4 h-100">
+            <div class="glass-panel skill-category-card p-4 h-100">
               <h3 class="h4 font-heading text-light border-bottom border-secondary-subtle pb-3 mb-4 d-flex align-items-center">
                 <span class="category-indicator me-2"></span>
                 {{ category.title }}
               </h3>
               
               <div class="skills-list d-flex flex-column gap-4">
-                <div class="skill-item" *ngFor="let skill of category.skills" 
+                <div class="skill-item" *ngFor="let skill of category.skills; let sIdx = index" 
                      appScrollReveal 
                      [revealClass]="'reveal-item'"
                      [threshold]="0.05">
                   <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="font-body text-light d-flex align-items-center">
-                      <i [class]="skill.icon + ' me-2 text-cyan'"></i>
+                    <span class="font-body text-light d-flex align-items-center skill-name">
+                      <i [class]="skill.icon + ' me-2 text-cyan skill-icon'"></i>
                       {{ skill.name }}
                     </span>
-                    <span class="font-heading text-cyan small fw-bold">{{ skill.level }}%</span>
+                    <span class="font-heading text-cyan small fw-bold skill-percentage">{{ skill.level }}%</span>
                   </div>
                   <div class="progress-track">
                     <div class="progress-fill" [style.--progress]="skill.level + '%'"></div>
@@ -70,25 +69,64 @@ interface SkillCategory {
       height: 4px;
       background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
       border-radius: 2px;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
     }
     
+    .skill-category-card {
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .skill-category-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(6, 182, 212, 0.35);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.15);
+    }
+
     .category-indicator {
       width: 10px;
       height: 10px;
       border-radius: 50%;
       background: var(--color-cyan);
-      box-shadow: 0 0 8px var(--color-cyan);
+      box-shadow: 0 0 10px var(--color-cyan);
       display: inline-block;
+      animation: pulseDot 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(1.3); opacity: 1; }
     }
     
     .text-cyan {
       color: var(--color-cyan);
     }
+
+    .skill-item {
+      transition: transform 0.25s ease;
+    }
+
+    .skill-item:hover {
+      transform: translateX(4px);
+    }
+
+    .skill-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .skill-item:hover .skill-icon {
+      transform: scale(1.25) rotate(10deg);
+      color: var(--color-secondary) !important;
+    }
+
+    .skill-name {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
     
     .progress-track {
       width: 100%;
       height: 8px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       border-radius: 4px;
       overflow: hidden;
       position: relative;
@@ -97,9 +135,25 @@ interface SkillCategory {
     .progress-fill {
       width: 0;
       height: 100%;
-      background: linear-gradient(90deg, var(--color-primary), var(--color-cyan));
+      background: linear-gradient(90deg, var(--color-primary), var(--color-cyan), var(--color-secondary));
+      background-size: 200% 100%;
       border-radius: 4px;
+      position: relative;
       transition: width 1.6s cubic-bezier(0.1, 1, 0.1, 1);
+    }
+
+    /* Glowing tip at the edge of progress bar */
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 12px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ffffff, 0 0 15px var(--color-cyan);
+      opacity: 0.9;
     }
     
     /* Reveal item trigger from ScrollReveal directive context */
@@ -145,3 +199,4 @@ export class SkillsComponent {
     }
   ];
 }
+
