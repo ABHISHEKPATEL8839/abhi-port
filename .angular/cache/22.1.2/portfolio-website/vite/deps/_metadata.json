@@ -1,0 +1,76 @@
+{
+  "hash": "a63e6514",
+  "configHash": "e6dbe6b9",
+  "lockfileHash": "40508f73",
+  "browserHash": "2b04a449",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "19441f12",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "efc73998",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "3b51bc96",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "9191be60",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "dd223186",
+      "needsInterop": false
+    },
+    "firebase/app": {
+      "src": "../../../../../../node_modules/firebase/app/dist/esm/index.esm.js",
+      "file": "firebase_app.js",
+      "fileHash": "620b15ab",
+      "needsInterop": false
+    },
+    "firebase/firestore": {
+      "src": "../../../../../../node_modules/firebase/firestore/dist/esm/index.esm.js",
+      "file": "firebase_firestore.js",
+      "fileHash": "faeebefe",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "common-BjO4jMce": {
+      "file": "common-BjO4jMce.js",
+      "isDynamicEntry": false
+    },
+    "core-BOi6uYdK": {
+      "file": "core-BOi6uYdK.js",
+      "isDynamicEntry": false
+    },
+    "createObject-iGUg9A2l": {
+      "file": "createObject-iGUg9A2l.js",
+      "isDynamicEntry": false
+    },
+    "from-DD4CXDOt": {
+      "file": "from-DD4CXDOt.js",
+      "isDynamicEntry": false
+    },
+    "index.esm-aXlzMQR5": {
+      "file": "index.esm-aXlzMQR5.js",
+      "isDynamicEntry": false
+    },
+    "platform-browser-CESk3bJs": {
+      "file": "platform-browser-CESk3bJs.js",
+      "isDynamicEntry": false
+    }
+  }
+}

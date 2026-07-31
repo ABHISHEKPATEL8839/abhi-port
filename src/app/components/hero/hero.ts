@@ -7,11 +7,9 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <section class="hero-section d-flex align-items-center justify-content-center position-relative overflow-hidden">
-      <!-- Cyber Grid Background Overlay -->
       <div class="grid-overlay"></div>
       
       <div class="container text-center position-relative z-2">
-        <!-- Floating Profile Avatar Frame -->
         <div class="profile-container mb-4">
           <div class="pulse-ring"></div>
           <div class="pulse-ring ring-2"></div>
@@ -204,7 +202,7 @@ export class HeroComponent implements OnInit, OnDestroy {
     'Premium UI Animations',
     'Scalable API Backends'
   ];
-  
+
   currentText = '';
   private phraseIndex = 0;
   private charIndex = 0;
@@ -217,7 +215,7 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   tick() {
     const currentPhrase = this.phrases[this.phraseIndex];
-    
+
     if (this.isDeleting) {
       this.currentText = currentPhrase.substring(0, this.charIndex - 1);
       this.charIndex--;

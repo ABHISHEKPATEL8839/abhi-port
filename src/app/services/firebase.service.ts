@@ -33,11 +33,10 @@ export class FirebaseService {
   private initFirebase() {
     const cfg = environment.firebase as any;
     // Check if configuration is a dummy placeholder or missing
-    const isMock = !cfg || 
-                  cfg.apiKey === 'YOUR_API_KEY' || 
-                  cfg.projectId === 'YOUR_PROJECT_ID' ||
-                  !cfg.apiKey;
-
+    const isMock = !cfg ||
+      cfg.apiKey === 'YOUR_API_KEY' ||
+      cfg.projectId === 'YOUR_PROJECT_ID' ||
+      !cfg.apiKey;
     if (isMock) {
       console.log('Firebase running in MOCK mode. Submissions will be stored in LocalStorage.');
       this.isMockMode = true;
@@ -59,16 +58,16 @@ export class FirebaseService {
     if (this.isMockMode || !this.db) {
       // Simulate network latency
       await new Promise(resolve => setTimeout(resolve, 800));
-      
+
       const savedMessages = localStorage.getItem('portfolio_contacts');
       const messagesList = savedMessages ? JSON.parse(savedMessages) : [];
-      
+
       const mockMessage = {
         ...message,
         id: 'msg_' + Date.now(),
         timestamp: new Date().toISOString()
       };
-      
+
       messagesList.push(mockMessage);
       localStorage.setItem('portfolio_contacts', JSON.stringify(messagesList));
       console.log('Mock stored contact message successfully:', mockMessage);
