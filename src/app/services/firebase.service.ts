@@ -31,7 +31,7 @@ export class FirebaseService {
   }
 
   private initFirebase() {
-    const cfg = environment.firebase;
+    const cfg = environment.firebase as any;
     // Check if configuration is a dummy placeholder or missing
     const isMock = !cfg || 
                   cfg.apiKey === 'YOUR_API_KEY' || 
