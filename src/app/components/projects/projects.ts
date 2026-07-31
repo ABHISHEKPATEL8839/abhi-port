@@ -34,8 +34,7 @@ interface Project {
         <div class="row g-4">
           <div class="col-lg-4 col-md-6" *ngFor="let project of projects; let idx = index"
                appScrollReveal 
-               [revealClass]="'reveal reveal-scale'" 
-               [revealDelayClass]="'reveal-delay-' + (idx + 1)">
+               [revealClass]="'reveal reveal-scale reveal-delay-' + (idx + 1)">
             <div class="glass-panel glass-card-hover p-4 h-100 d-flex flex-column justify-content-between relative"
                  [style.border-top]="'3px solid ' + project.color">
               <div>

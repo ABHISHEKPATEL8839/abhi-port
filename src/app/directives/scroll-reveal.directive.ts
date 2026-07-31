@@ -16,8 +16,11 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
   ngOnInit() {
     if (typeof window === 'undefined') return;
 
-    // Apply the initial reveal class (e.g., 'reveal', 'reveal reveal-left', etc.)
-    this.el.nativeElement.classList.add(this.revealClass);
+    // Apply the initial reveal class (handles space-separated classes safely)
+    if (this.revealClass) {
+      const classes = this.revealClass.split(' ').filter(c => c.trim().length > 0);
+      this.el.nativeElement.classList.add(...classes);
+    }
 
     // Setup intersection observer
     this.observer = new IntersectionObserver(
