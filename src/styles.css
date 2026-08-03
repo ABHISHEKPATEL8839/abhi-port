@@ -463,3 +463,25 @@ dialog.glass-dialog[open]::backdrop {
   }
 }
 
+/* Dialogue exit transition class */
+dialog.glass-dialog.dialog-closing {
+  opacity: 0 !important;
+  transform: scale(0.92) translateY(20px) !important;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+dialog.glass-dialog.dialog-closing::backdrop {
+  opacity: 0 !important;
+  transition: opacity 0.35s ease !important;
+}
+
+/* Tactile button active click animations */
+.btn-glow-primary:active,
+.btn-glass:active,
+.social-btn:active,
+.close-btn:active,
+.focus-pill:active {
+  transform: scale(0.95) translateY(0) !important;
+  transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+

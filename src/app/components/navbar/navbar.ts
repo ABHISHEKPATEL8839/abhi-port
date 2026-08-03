@@ -27,11 +27,15 @@ import { CommonModule } from '@angular/common';
             <li class="nav-item" *ngFor="let link of navLinks">
               <a class="nav-link px-3 font-body" 
                  [href]="link.href"
+                 [class.active]="activeSection === link.href.substring(1)"
                  (click)="closeMenu()">{{ link.label }}</a>
             </li>
           </ul>
           <div class="ms-lg-3 text-center mt-3 mt-lg-0">
-            <a href="#contact" class="btn btn-glow-primary py-2 px-4 navbar-btn" (click)="closeMenu()">
+            <a href="#contact" 
+               class="btn btn-glow-primary py-2 px-4 navbar-btn" 
+               [class.active]="activeSection === 'contact'"
+               (click)="closeMenu()">
               Contact Me <i class="bi bi-send-fill ms-1 fs-6"></i>
             </a>
           </div>
@@ -96,7 +100,8 @@ import { CommonModule } from '@angular/common';
       position: relative;
     }
     
-    .nav-link:hover {
+    .nav-link:hover,
+    .nav-link.active {
       color: #ffffff !important;
     }
     
@@ -114,7 +119,8 @@ import { CommonModule } from '@angular/common';
       box-shadow: 0 0 8px var(--color-cyan);
     }
     
-    .nav-link:hover::after {
+    .nav-link:hover::after,
+    .nav-link.active::after {
       width: 75%;
     }
 
@@ -154,6 +160,7 @@ import { CommonModule } from '@angular/common';
 export class NavbarComponent {
   isScrolled = false;
   isMenuOpen = false;
+  activeSection = 'hero';
 
   navLinks = [
     { href: '#hero', label: 'Home' },
@@ -167,6 +174,24 @@ export class NavbarComponent {
   onWindowScroll() {
     if (typeof window !== 'undefined') {
       this.isScrolled = window.scrollY > 50;
+      this.updateActiveSection();
+    }
+  }
+
+  private updateActiveSection() {
+    const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'contact'];
+    const scrollPosition = window.scrollY + 160; // offset to trigger active state slightly earlier
+
+    for (const section of sections) {
+      const el = document.getElementById(section);
+      if (el) {
+        const top = el.offsetTop;
+        const height = el.offsetHeight;
+        if (scrollPosition >= top && scrollPosition < top + height) {
+          this.activeSection = section;
+          break;
+        }
+      }
     }
   }
 

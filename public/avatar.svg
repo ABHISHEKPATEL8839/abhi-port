@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <!-- Definitions for gradients and filters -->
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#070913" />
+    </radialGradient>
+    
+    <!-- Neon Indigo Border Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="50%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#d946ef" />
+    </linearGradient>
+
+    <!-- Neon Glow Filter -->
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="subtleGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Skin Gradient -->
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffdbac" />
+      <stop offset="100%" stop-color="#f1c27d" />
+    </linearGradient>
+
+    <!-- Hoodie Gradient -->
+    <linearGradient id="hoodieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Circle Background -->
+  <circle cx="100" cy="100" r="96" fill="url(#bgGrad)" />
+
+  <!-- Neon Glowing Outer Ring -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="url(#borderGrad)" stroke-width="3" filter="url(#neonGlow)" />
+
+  <!-- Background Tech Lines/Hologram Elements -->
+  <g opacity="0.25">
+    <path d="M 30,70 L 60,70 L 70,80 L 100,80" fill="none" stroke="#06b6d4" stroke-width="1.5" />
+    <circle cx="30" cy="70" r="3" fill="#06b6d4" />
+    <path d="M 170,110 L 140,110 L 130,100 L 100,100" fill="none" stroke="#6366f1" stroke-width="1.5" />
+    <circle cx="170" cy="110" r="3" fill="#6366f1" />
+    <text x="140" y="60" fill="#d946ef" font-family="monospace" font-size="8" font-weight="bold">&lt;div&gt;</text>
+    <text x="35" y="140" fill="#06b6d4" font-family="monospace" font-size="8" font-weight="bold">const dev;</text>
+  </g>
+
+  <!-- Developer Character Group -->
+  <g id="developer">
+    <!-- Hoodie Shoulders / Body -->
+    <path d="M 45,165 C 45,145 60,135 100,135 C 140,135 155,145 155,165 L 145,200 L 55,200 Z" fill="url(#hoodieGrad)" />
+    
+    <!-- Neon Seams on Hoodie -->
+    <path d="M 65,152 C 75,147 85,145 100,145 C 115,145 125,147 135,152" fill="none" stroke="#06b6d4" stroke-width="1.5" filter="url(#subtleGlow)" />
+    <path d="M 98,145 L 98,190" fill="none" stroke="#d946ef" stroke-width="1" filter="url(#subtleGlow)" />
+
+    <!-- Head / Neck -->
+    <rect x="88" y="110" width="24" height="30" rx="5" fill="url(#skinGrad)" />
+    <!-- Chin/Face -->
+    <path d="M 72,85 C 72,115 80,128 100,128 C 120,128 128,115 128,85 C 128,75 120,60 100,60 C 80,60 72,75 72,85 Z" fill="url(#skinGrad)" />
+
+    <!-- Hair (Stylish Dark Hair with Volume) -->
+    <path d="M 68,80 C 65,65 75,48 95,48 C 115,48 132,60 132,75 C 130,73 125,72 120,72 C 120,72 110,62 98,62 C 85,62 75,75 68,80 Z" fill="#1e293b" />
+    <path d="M 70,78 C 72,62 82,53 98,53 C 112,53 128,63 128,75 C 125,70 115,67 105,67 C 92,67 80,75 70,78 Z" fill="#0f172a" />
+
+    <!-- Beard / Stubble -->
+    <path d="M 72,90 C 72,112 80,128 100,128 C 120,128 128,112 128,90 C 128,95 125,115 120,118 C 115,123 108,124 100,124 C 92,124 85,123 80,118 C 75,115 72,95 72,90 Z" fill="#334155" opacity="0.75" />
+
+    <!-- Eyes (Simple, stylized) -->
+    <ellipse cx="88" cy="88" rx="3" ry="2" fill="#1e293b" />
+    <ellipse cx="112" cy="88" rx="3" ry="2" fill="#1e293b" />
+    
+    <!-- Eyebrows -->
+    <path d="M 80,82 C 84,80 92,82 94,84" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" />
+    <path d="M 120,82 C 116,80 108,82 106,84" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Glasses (Neon Blue Glowing Circular Frames) -->
+    <circle cx="88" cy="89" r="13" fill="none" stroke="#06b6d4" stroke-width="2" filter="url(#subtleGlow)" />
+    <circle cx="112" cy="89" r="13" fill="none" stroke="#06b6d4" stroke-width="2" filter="url(#subtleGlow)" />
+    <line x1="101" y1="89" x2="109" y2="89" stroke="#06b6d4" stroke-width="2" filter="url(#subtleGlow)" />
+    <!-- Glasses Temples -->
+    <path d="M 75,89 L 71,85" stroke="#06b6d4" stroke-width="1.5" />
+    <path d="M 125,89 L 129,85" stroke="#06b6d4" stroke-width="1.5" />
+    <!-- Glasses Reflections -->
+    <path d="M 78,85 Q 85,80 92,85" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5" />
+    <path d="M 102,85 Q 109,80 116,85" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5" />
+
+    <!-- Smile (Subtle and friendly) -->
+    <path d="M 94,106 Q 100,111 106,106" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" />
+  </g>
+</svg>

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
+import { CountUpDirective } from '../../directives/count-up.directive';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, ScrollRevealDirective],
+  imports: [CommonModule, ScrollRevealDirective, CountUpDirective],
   template: `
     <section class="section-padding bg-dark-slate position-relative overflow-hidden">
       <div class="container">
@@ -48,7 +49,10 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                   <div class="stat-icon mb-3">
                     <i [class]="stat.icon"></i>
                   </div>
-                  <h3 class="display-6 fw-extrabold text-light mb-1 stat-value">{{ stat.value }}</h3>
+                  <h3 class="display-6 fw-extrabold text-light mb-1 stat-value"
+                      appCountUp 
+                      [endValue]="stat.endValue" 
+                      [suffix]="stat.suffix">0</h3>
                   <p class="text-muted font-body small mb-0 fw-medium">{{ stat.label }}</p>
                 </div>
               </div>
@@ -134,10 +138,10 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 })
 export class AboutComponent {
   stats = [
-    { value: '5+', label: 'Projects Built', icon: 'bi-rocket-takeoff' },
-    { value: '3+', label: 'MVPs Launched', icon: 'bi-trophy' },
-    { value: '100%', label: 'Clean Code', icon: 'bi-shield-check' },
-    { value: '24/7', label: 'Tech Learner', icon: 'bi-cpu' }
+    { endValue: 5, suffix: '+', label: 'Projects Built', icon: 'bi-rocket-takeoff' },
+    { endValue: 3, suffix: '+', label: 'MVPs Launched', icon: 'bi-trophy' },
+    { endValue: 100, suffix: '%', label: 'Clean Code', icon: 'bi-shield-check' },
+    { endValue: 24, suffix: '/7', label: 'Tech Learner', icon: 'bi-cpu' }
   ];
 }
 

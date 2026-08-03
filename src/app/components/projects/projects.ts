@@ -12,6 +12,7 @@ interface Project {
   icon: string;
   color: string;
   githubUrl: string;
+  liveUrl: string;
 }
 
 @Component({
@@ -53,10 +54,18 @@ interface Project {
                   <span class="tag-badge small" *ngFor="let tag of project.tags">{{ tag }}</span>
                 </div>
                 
-                <button class="btn btn-glass w-100 py-2 d-flex align-items-center justify-content-center view-btn"
-                        (click)="openDialog(project, detailDialog)">
-                  View Architecture <i class="bi bi-arrow-up-right-circle ms-2 view-icon"></i>
-                </button>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-glass flex-grow-1 py-2 d-flex align-items-center justify-content-center view-btn"
+                          (click)="openDialog(project, detailDialog)">
+                    Details <i class="bi bi-info-circle ms-1.5 small"></i>
+                  </button>
+                  <a [href]="project.githubUrl" target="_blank" class="btn btn-glass px-3 py-2 d-flex align-items-center justify-content-center social-btn card-link-btn" title="GitHub Repository">
+                    <i class="bi bi-github"></i>
+                  </a>
+                  <a [href]="project.liveUrl" target="_blank" class="btn btn-glow-primary px-3 py-2 d-flex align-items-center justify-content-center social-btn card-link-btn" title="Live Demo">
+                    <i class="bi bi-box-arrow-up-right"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -64,7 +73,9 @@ interface Project {
       </div>
 
       <!-- Native HTML5 Glassmorphic Dialog with Animated Features -->
-      <dialog #detailDialog class="glass-dialog">
+      <dialog #detailDialog class="glass-dialog"
+              (click)="onDialogClick($event, detailDialog)"
+              (cancel)="onDialogCancel($event, detailDialog)">
         <div class="dialog-header p-4 d-flex justify-content-between align-items-center" *ngIf="selectedProject">
           <h3 class="h4 font-heading text-light m-0 d-flex align-items-center">
             <i [class]="selectedProject.icon + ' me-2 icon-pop'" [style.color]="selectedProject.color"></i>
@@ -93,8 +104,11 @@ interface Project {
 
         <div class="dialog-footer p-4 d-flex gap-3 justify-content-end border-top border-secondary-subtle" *ngIf="selectedProject">
           <button class="btn btn-glass py-2 px-4" (click)="closeDialog(detailDialog)">Close</button>
-          <a [href]="selectedProject.githubUrl" target="_blank" class="btn btn-glow-primary py-2 px-4 d-flex align-items-center">
+          <a [href]="selectedProject.githubUrl" target="_blank" class="btn btn-glass py-2 px-4 d-flex align-items-center">
             GitHub Repo <i class="bi bi-github ms-2"></i>
+          </a>
+          <a [href]="selectedProject.liveUrl" target="_blank" class="btn btn-glow-primary py-2 px-4 d-flex align-items-center">
+            Live Demo <i class="bi bi-box-arrow-up-right ms-2"></i>
           </a>
         </div>
       </dialog>
@@ -224,52 +238,140 @@ export class ProjectsComponent {
 
   projects: Project[] = [
     {
-      title: 'Mini-whatsapp',
-      subtitle: 'Real-Time Chat App Clone',
-      summary: 'A sophisticated web messaging application replicating core WhatsApp features with active database synchronization.',
-      description: 'Mini-whatsapp is a real-time communications dashboard built on Angular. It establishes live message synchronization using Cloud Firestore collection listeners, implements user verification using Firebase Authentication, and features interactive emoji selection grids alongside rich file attachment utilities.',
-      tags: ['Angular', 'TypeScript', 'Firebase Auth', 'Cloud Firestore', 'RxJS', 'CSS Grid'],
+      title: 'E-Commerce Platform',
+      subtitle: 'Modern Digital Storefront',
+      summary: 'A robust shopping cart and catalog dashboard with mock payment flows.',
+      description: 'A fully featured shopping experience including product galleries, search filters, state-managed shopping carts, and dynamic checkout billing forms.',
+      tags: ['Angular', 'TypeScript', 'RxJS', 'LocalStorage', 'Bootstrap'],
       features: [
-        'Real-time messaging with live Firestore snapshots.',
-        'Active status indicator channels using window tab callbacks.',
-        'Encrypted session state tracking preserved in LocalStorage.',
-        'Seamless media encoding to Base64 payloads for direct document and image delivery.'
+        'Dynamic catalog filters by category, price, and rating.',
+        'Stateful shopping cart manager with active item counts and summary calculations.',
+        'Mock payment checkout integration with FormBuilder validations.',
+        'Responsive design optimized for both mobile browsing and desktop checkout.'
+      ],
+      icon: 'bi-cart3',
+      color: '#3b82f6',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/ecommerce',
+      liveUrl: 'https://ABHISHEKPATEL8839.github.io/ecommerce'
+    },
+    {
+      title: 'School Management System',
+      subtitle: 'Institutional Portal & Dashboard',
+      summary: 'An administrative workflow portal managing student records and classes.',
+      description: 'A multi-role portal for tracking enrollments, grades, teacher schedules, fee payments, and class configurations.',
+      tags: ['Angular', 'Forms', 'Routing', 'TypeScript', 'Data Tables'],
+      features: [
+        'Dynamic student database filters and record management.',
+        'Interactive grade sheets and performance reports.',
+        'Class scheduler with drag-and-drop course configurations.',
+        'Fee tracking ledger with payment status indicators.'
+      ],
+      icon: 'bi-mortarboard',
+      color: '#10b981',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/school-management',
+      liveUrl: 'https://ABHISHEKPATEL8839.github.io/school-management'
+    },
+    {
+      title: 'Movie Rating System',
+      subtitle: 'Media Review & Query Hub',
+      summary: 'A comprehensive movie rating platform pulling search requests and listings.',
+      description: 'An interactive catalog allowing search queries, category sorting, stars ratings, and detailed user reviews for movies and shows.',
+      tags: ['Angular', 'API Integration', 'RxJS', 'CSS Grid', 'Star Rating'],
+      features: [
+        'Responsive search fields filtering extensive cinema catalogs.',
+        'Interactive stars ratings components reflecting immediate user choices.',
+        'Detailed review boards for user comments and sentiment rating.',
+        'Dynamic movie trailers and media detail overlays.'
+      ],
+      icon: 'bi-film',
+      color: '#f59e0b',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/movie-rating-system',
+      liveUrl: 'https://ABHISHEKPATEL8839.github.io/movie-rating-system'
+    },
+    {
+      title: 'Interactive Calculator',
+      subtitle: 'Mathematic Workspace',
+      summary: 'A sleek, floating math engine handling rapid calculations.',
+      description: 'A high-performance interactive math application with arithmetic calculations, equations history, and cyberpunk styling.',
+      tags: ['HTML5', 'CSS Grid', 'JavaScript', 'Math Engine', 'Responsive'],
+      features: [
+        'Clean math expression compiler verifying mathematical orders (PEMDAS).',
+        'Detailed calculations history ledger storing past results in LocalStorage.',
+        'Keyboard inputs tracking matching physical buttons.',
+        'Premium glassmorphism theme with smooth button press scaling.'
+      ],
+      icon: 'bi-calculator',
+      color: '#ec4899',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/calculater',
+      liveUrl: 'https://ABHISHEKPATEL8839.github.io/calculater'
+    },
+    {
+      title: 'WhatsApp Clone',
+      subtitle: 'Real-Time Messaging Clone',
+      summary: 'A web chat client using active synchronization and channel feeds.',
+      description: 'Mini-whatsapp messaging system using active database connections, custom status indicators, and photo attachment capabilities.',
+      tags: ['Angular', 'Firebase Auth', 'Cloud Firestore', 'RxJS', 'WebSockets'],
+      features: [
+        'Real-time chat channels with immediate scroll-to-bottom sync.',
+        'Offline and online status tracking using window visibility listeners.',
+        'Base64 media encoder for photo attachments and document transfers.',
+        'Emoji selection tray with searchable grids.'
       ],
       icon: 'bi-whatsapp',
-      color: '#25D366',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/Mini-whatsaap'
+      color: '#22c55e',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/whatsapp-abhiwhatsaap',
+      liveUrl: 'https://ABHISHEKPATEL8839.github.io/whatsapp-abhiwhatsaap'
     },
     {
-      title: 'arccms',
-      subtitle: 'Modular Content Management System',
-      summary: 'A flexible, template-driven CMS platform allowing automated publishing workflows and layout creation.',
-      description: 'arccms is an advanced content hub structured to process custom templates and layouts. It utilizes serverless Firebase Functions for SSR/API layers, integrates with secure Firestore collections, and employs interactive control dashboards to orchestrate assets, styles, and page layouts dynamically.',
-      tags: ['Node.js', 'Express', 'Firebase Functions', 'Firestore Rules', 'EJS/HTML5'],
+      title: 'Family Management App',
+      subtitle: 'Organisational Hub',
+      summary: 'A coordination workspace for tasks, schedules, and alerts.',
+      description: 'An app designed to keep family units organized, featuring shared shopping lists, calendar events, active chore task boards, and notes.',
+      tags: ['Angular', 'Shared State', 'Task Tracking', 'TypeScript', 'Gantt'],
       features: [
-        'Secure API routes with custom Firestore database rules.',
-        'Dynamic EJS template loading and partial compilers.',
-        'Automated schema generation for custom content forms.',
-        'Automated hosting builds and static deployments.'
+        'Shared chore tracker checking status and assignee progress.',
+        'Shopping list checklist sync with quantity modifiers.',
+        'Family event calendar with custom reminders.',
+        'Notes board with grid-pinning animations.'
       ],
-      icon: 'bi-layers-half',
+      icon: 'bi-people',
+      color: '#8b5cf6',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/family-management-app',
+      liveUrl: 'https://ABHISHEKPATEL8839.github.io/family-management-app'
+    },
+    {
+      title: 'Tic-Tac-Toe Game',
+      subtitle: 'Classic Algorithmic Game',
+      summary: 'An interactive game board featuring local PvP and smart AI modes.',
+      description: 'A classic Tic-Tac-Toe game incorporating responsive grid scaling, scoreboards, sound indicators, and Minimax AI opponents.',
+      tags: ['Angular', 'Minimax AI', 'CSS Transitions', 'Game Loop', 'RxJS'],
+      features: [
+        'Smart Minimax AI opponent that plays unbeatable moves.',
+        'Local 2-player pass-and-play matches with scoreboards.',
+        'Win/Draw state detection highlighting winning node paths.',
+        'Haptic vibration and visual sound wave cues.'
+      ],
+      icon: 'bi-grid-3x3',
       color: '#06b6d4',
-      githubUrl: 'https://github.com/quadralyst/arccms'
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/tik-tak-game',
+      liveUrl: 'https://ABHISHEKPATEL8839.github.io/tik-tak-game'
     },
     {
-      title: 'Trainee-hitMvp',
-      subtitle: 'Enterprise MVP Training Hub',
-      summary: 'An employee onboarding and workflow management platform featuring onboarding routes and ritual dashboards.',
-      description: 'Trainee-hitMvp is a business-facing training workspace built to organize onboarding processes. It implements deep routing structures, includes interactive onboarding steps, and offers dashboard summaries monitoring employees daily rituals, paths, and tasks.',
-      tags: ['Angular CLI', 'TypeScript', 'SCSS Modules', 'Angular Forms', 'Path Routing'],
+      title: 'EMI Calculator',
+      subtitle: 'Financial Planner',
+      summary: 'An amortization engine illustrating loan installments and interest charts.',
+      description: 'A clean financial assistant calculating loan EMIs, total interest, and rendering interactive payment schedules.',
+      tags: ['Angular', 'Financial Engine', 'Forms', 'Data Visualisation'],
       features: [
-        'Interactive 6-step onboarding form maps checking validations.',
-        'Visual roadmaps with path-builder nodes.',
-        'FormBuilder implementations for robust data verification.',
-        'State-driven components controlling ritual trackers and user lists.'
+        'Amortization scheduler detailing principal vs interest splits over time.',
+        'Dynamic sliders for loan amount, tenure, and interest rates.',
+        'Detailed printable payment schedule reports.',
+        'Interactive pie charts highlighting principal vs interest percentages.'
       ],
-      icon: 'bi-award-fill',
-      color: '#d946ef',
-      githubUrl: 'https://github.com/quadralyst-ritesh/Trainee-hitMvp'
+      icon: 'bi-percent',
+      color: '#f43f5e',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/emi-calculater',
+      liveUrl: 'https://ABHISHEKPATEL8839.github.io/emi-calculater'
     }
   ];
 
@@ -279,8 +381,26 @@ export class ProjectsComponent {
   }
 
   closeDialog(dialogEl: HTMLDialogElement) {
-    dialogEl.close();
-    this.selectedProject = null;
+    dialogEl.classList.add('dialog-closing');
+    setTimeout(() => {
+      dialogEl.close();
+      dialogEl.classList.remove('dialog-closing');
+      this.selectedProject = null;
+    }, 350); // Matches the 0.35s CSS transition
+  }
+
+  onDialogClick(event: MouseEvent, dialogEl: HTMLDialogElement) {
+    const rect = dialogEl.getBoundingClientRect();
+    const isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
+      rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+    if (!isInDialog) {
+      this.closeDialog(dialogEl);
+    }
+  }
+
+  onDialogCancel(event: Event, dialogEl: HTMLDialogElement) {
+    event.preventDefault();
+    this.closeDialog(dialogEl);
   }
 }
 
