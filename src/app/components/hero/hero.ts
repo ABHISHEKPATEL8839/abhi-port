@@ -32,7 +32,7 @@ import { CommonModule } from '@angular/common';
           <div class="pulse-ring"></div>
           <div class="pulse-ring ring-2"></div>
           <div class="profile-avatar glass-panel">
-            <span class="avatar-emoji">👨‍💻</span>
+            <img src="avatar.svg" alt="Abhishek Patel Avatar" class="avatar-img" />
           </div>
         </div>
 
@@ -173,11 +173,18 @@ import { CommonModule } from '@angular/common';
       border: 2px solid rgba(255, 255, 255, 0.2);
       background: rgba(15, 23, 42, 0.7);
       box-shadow: var(--shadow-glow);
+      overflow: hidden;
     }
     
-    .avatar-emoji {
-      font-size: 4.2rem;
-      animation: emojiBob 4s infinite ease-in-out;
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .profile-avatar:hover .avatar-img {
+      transform: scale(1.1) rotate(4deg);
     }
 
     .pulse-ring {
