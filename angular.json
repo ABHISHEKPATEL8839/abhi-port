@@ -3,7 +3,11 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": false
+    "analytics": false,
+    "cache": {
+      "enabled": true,
+      "environment": "all"
+    }
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -31,19 +35,24 @@
           },
           "configurations": {
             "production": {
-              "optimization": {
-                "fonts": {
-                  "inline": false
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
-              },
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
               "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "1MB",
                   "maximumError": "5MB"
-                 }
-              ],
-              "outputHashing": "all"
+                }
+              ]
             },
             "development": {
               "optimization": false,
