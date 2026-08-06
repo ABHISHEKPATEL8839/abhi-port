@@ -31,6 +31,32 @@
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+/* Neon Synthwave Theme */
+[data-theme="neon"] {
+  --bg-deep-space: #0d0614;
+  --bg-slate: #150921;
+  --bg-card: rgba(30, 10, 50, 0.45);
+  --color-primary: #ec4899;
+  --color-secondary: #a855f7;
+  --color-cyan: #38bdf8;
+  --color-accent: #f43f5e;
+  --border-glow: rgba(236, 72, 153, 0.35);
+  --shadow-glow: 0 0 25px rgba(236, 72, 153, 0.35);
+}
+
+/* Emerald Code Matrix Theme */
+[data-theme="emerald"] {
+  --bg-deep-space: #03120e;
+  --bg-slate: #061e18;
+  --bg-card: rgba(6, 40, 30, 0.45);
+  --color-primary: #10b981;
+  --color-secondary: #06b6d4;
+  --color-cyan: #34d399;
+  --color-accent: #a3e635;
+  --border-glow: rgba(16, 185, 129, 0.35);
+  --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.35);
+}
+
 /* --- Document Defaults --- */
 html {
   scroll-behavior: smooth;

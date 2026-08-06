@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 interface Project {
+  category?: string;
   title: string;
   subtitle: string;
   summary: string;
@@ -18,7 +20,7 @@ interface Project {
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, ScrollRevealDirective],
+  imports: [CommonModule, FormsModule, ScrollRevealDirective],
   template: `
     <section class="section-padding bg-dark-slate position-relative">
       <div class="container">
@@ -31,11 +33,43 @@ interface Project {
           </div>
         </div>
 
+        <!-- Interactive Filter & Search Bar -->
+        <div class="row mb-5 justify-content-center">
+          <div class="col-lg-10">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 glass-panel p-3 rounded-4">
+              <!-- Filter Pills -->
+              <div class="d-flex flex-wrap gap-2 justify-content-center">
+                <button *ngFor="let cat of categories" 
+                        class="btn btn-sm px-3 py-2 rounded-pill transition-all font-heading fw-medium"
+                        [ngClass]="selectedCategory === cat ? 'btn-glow-primary' : 'btn-glass text-muted'"
+                        (click)="selectedCategory = cat">
+                  {{ cat }}
+                </button>
+              </div>
+
+              <!-- Search Box -->
+              <div class="position-relative w-100 w-md-auto" style="min-width: 240px;">
+                <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-cyan"></i>
+                <input type="text" 
+                       class="form-control bg-dark border-secondary-subtle text-light font-body ps-5 rounded-pill shadow-none" 
+                       placeholder="Search projects by tech..." 
+                       [(ngModel)]="searchQuery">
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Projects Grid -->
         <div class="row g-4">
-          <div class="col-lg-4 col-md-6" *ngFor="let project of projects; let idx = index"
+          <div *ngIf="filteredProjects.length === 0" class="col-12 text-center py-5">
+            <i class="bi bi-folder-x fs-1 text-cyan opacity-50 d-block mb-3"></i>
+            <h4 class="text-light font-heading">No projects match your filter</h4>
+            <p class="text-muted font-body">Try clearing your search or selecting a different category.</p>
+          </div>
+
+          <div class="col-lg-4 col-md-6" *ngFor="let project of filteredProjects; let idx = index"
                appScrollReveal 
-               [revealClass]="'reveal reveal-scale reveal-delay-' + (idx + 1)">
+               [revealClass]="'reveal reveal-scale reveal-delay-' + (idx % 3 + 1)">
             <div class="glass-panel glass-card-hover project-card p-4 h-100 d-flex flex-column justify-content-between relative"
                  [style.border-top]="'3px solid ' + project.color">
               <div>
@@ -238,142 +272,96 @@ export class ProjectsComponent {
 
   projects: Project[] = [
     {
-      title: 'E-Commerce Platform',
-      subtitle: 'Modern Digital Storefront',
-      summary: 'A robust shopping cart and catalog dashboard with mock payment flows.',
-      description: 'A fully featured shopping experience including product galleries, search filters, state-managed shopping carts, and dynamic checkout billing forms.',
-      tags: ['Angular', 'TypeScript', 'RxJS', 'LocalStorage', 'Bootstrap'],
+      title: 'Trainee Hit MVP - Core SaaS Platform',
+      subtitle: 'Full-Stack SaaS Playbook & Rituals Suite',
+      summary: 'A modern trainee development platform with interactive rituals, habit streaks, tactics, and real-time Firestore synchronization.',
+      description: 'Trainee Hit MVP is a comprehensive full-stack application built to structure trainee onboarding, daily habit tracking, tactics discovery, and progress analytics. Built with Analog.js, Angular 21, and NgRx Signal stores.',
+      tags: ['Analog.js', 'Angular 21', 'NgRx Signals', 'Firebase Firestore', 'TypeScript'],
       features: [
-        'Dynamic catalog filters by category, price, and rating.',
-        'Stateful shopping cart manager with active item counts and summary calculations.',
-        'Mock payment checkout integration with FormBuilder validations.',
-        'Responsive design optimized for both mobile browsing and desktop checkout.'
+        'Real-time Firestore synchronization with custom reactive DB services.',
+        'Interactive daily rituals tracker with habit streaks and completion rates.',
+        'Onboarding playbook flow guiding trainees through step-by-step tactics.',
+        'Blazing fast SSR & static shell rendering powered by Analog.js & Vite.'
       ],
-      icon: 'bi-cart3',
-      color: '#3b82f6',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/ecommerce',
-      liveUrl: 'https://ABHISHEKPATEL8839.github.io/ecommerce'
+      icon: 'bi-rocket-takeoff-fill',
+      color: '#6366f1',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/Trainee-hitMvp',
+      liveUrl: 'https://github.com/ABHISHEKPATEL8839/Trainee-hitMvp'
     },
     {
-      title: 'School Management System',
-      subtitle: 'Institutional Portal & Dashboard',
-      summary: 'An administrative workflow portal managing student records and classes.',
-      description: 'A multi-role portal for tracking enrollments, grades, teacher schedules, fee payments, and class configurations.',
-      tags: ['Angular', 'Forms', 'Routing', 'TypeScript', 'Data Tables'],
+      title: 'Trainee Hit MVP - Admin CMS & Tiptap Editor',
+      subtitle: 'Content Management & Tactic Publisher',
+      summary: 'An administrative dashboard featuring Tiptap rich-text editing, custom playbook generators, and index deployment tools.',
+      description: 'An advanced admin portal for Trainee Hit MVP providing content management, rich-text tactic creation, automated seed scripts, and index deployment pipelines.',
+      tags: ['Angular Material', 'Tiptap Editor', 'Firebase Admin', 'Firestore Indexes', 'ProseMirror'],
       features: [
-        'Dynamic student database filters and record management.',
-        'Interactive grade sheets and performance reports.',
-        'Class scheduler with drag-and-drop course configurations.',
-        'Fee tracking ledger with payment status indicators.'
+        'WYSIWYG rich text editor with custom extensions (mentions, tables, bubble menu).',
+        'Automated Firestore index exporter (firestore.indexes.json).',
+        'Tactic & Playbook publishing pipeline with instant client updates.',
+        'Role-based authorization guards checking administrative privileges.'
       ],
-      icon: 'bi-mortarboard',
-      color: '#10b981',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/school-management',
-      liveUrl: 'https://ABHISHEKPATEL8839.github.io/school-management'
-    },
-    {
-      title: 'Movie Rating System',
-      subtitle: 'Media Review & Query Hub',
-      summary: 'A comprehensive movie rating platform pulling search requests and listings.',
-      description: 'An interactive catalog allowing search queries, category sorting, stars ratings, and detailed user reviews for movies and shows.',
-      tags: ['Angular', 'API Integration', 'RxJS', 'CSS Grid', 'Star Rating'],
-      features: [
-        'Responsive search fields filtering extensive cinema catalogs.',
-        'Interactive stars ratings components reflecting immediate user choices.',
-        'Detailed review boards for user comments and sentiment rating.',
-        'Dynamic movie trailers and media detail overlays.'
-      ],
-      icon: 'bi-film',
-      color: '#f59e0b',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/movie-rating-system',
-      liveUrl: 'https://ABHISHEKPATEL8839.github.io/movie-rating-system'
-    },
-    {
-      title: 'Interactive Calculator',
-      subtitle: 'Mathematic Workspace',
-      summary: 'A sleek, floating math engine handling rapid calculations.',
-      description: 'A high-performance interactive math application with arithmetic calculations, equations history, and cyberpunk styling.',
-      tags: ['HTML5', 'CSS Grid', 'JavaScript', 'Math Engine', 'Responsive'],
-      features: [
-        'Clean math expression compiler verifying mathematical orders (PEMDAS).',
-        'Detailed calculations history ledger storing past results in LocalStorage.',
-        'Keyboard inputs tracking matching physical buttons.',
-        'Premium glassmorphism theme with smooth button press scaling.'
-      ],
-      icon: 'bi-calculator',
-      color: '#ec4899',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/calculater',
-      liveUrl: 'https://ABHISHEKPATEL8839.github.io/calculater'
-    },
-    {
-      title: 'WhatsApp Clone',
-      subtitle: 'Real-Time Messaging Clone',
-      summary: 'A web chat client using active synchronization and channel feeds.',
-      description: 'Mini-whatsapp messaging system using active database connections, custom status indicators, and photo attachment capabilities.',
-      tags: ['Angular', 'Firebase Auth', 'Cloud Firestore', 'RxJS', 'WebSockets'],
-      features: [
-        'Real-time chat channels with immediate scroll-to-bottom sync.',
-        'Offline and online status tracking using window visibility listeners.',
-        'Base64 media encoder for photo attachments and document transfers.',
-        'Emoji selection tray with searchable grids.'
-      ],
-      icon: 'bi-whatsapp',
-      color: '#22c55e',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/whatsapp-abhiwhatsaap',
-      liveUrl: 'https://ABHISHEKPATEL8839.github.io/whatsapp-abhiwhatsaap'
-    },
-    {
-      title: 'Family Management App',
-      subtitle: 'Organisational Hub',
-      summary: 'A coordination workspace for tasks, schedules, and alerts.',
-      description: 'An app designed to keep family units organized, featuring shared shopping lists, calendar events, active chore task boards, and notes.',
-      tags: ['Angular', 'Shared State', 'Task Tracking', 'TypeScript', 'Gantt'],
-      features: [
-        'Shared chore tracker checking status and assignee progress.',
-        'Shopping list checklist sync with quantity modifiers.',
-        'Family event calendar with custom reminders.',
-        'Notes board with grid-pinning animations.'
-      ],
-      icon: 'bi-people',
-      color: '#8b5cf6',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/family-management-app',
-      liveUrl: 'https://ABHISHEKPATEL8839.github.io/family-management-app'
-    },
-    {
-      title: 'Tic-Tac-Toe Game',
-      subtitle: 'Classic Algorithmic Game',
-      summary: 'An interactive game board featuring local PvP and smart AI modes.',
-      description: 'A classic Tic-Tac-Toe game incorporating responsive grid scaling, scoreboards, sound indicators, and Minimax AI opponents.',
-      tags: ['Angular', 'Minimax AI', 'CSS Transitions', 'Game Loop', 'RxJS'],
-      features: [
-        'Smart Minimax AI opponent that plays unbeatable moves.',
-        'Local 2-player pass-and-play matches with scoreboards.',
-        'Win/Draw state detection highlighting winning node paths.',
-        'Haptic vibration and visual sound wave cues.'
-      ],
-      icon: 'bi-grid-3x3',
+      icon: 'bi-sliders',
       color: '#06b6d4',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/tik-tak-game',
-      liveUrl: 'https://ABHISHEKPATEL8839.github.io/tik-tak-game'
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/Trainee-hitMvp',
+      liveUrl: 'https://github.com/ABHISHEKPATEL8839/Trainee-hitMvp'
     },
     {
-      title: 'EMI Calculator',
-      subtitle: 'Financial Planner',
-      summary: 'An amortization engine illustrating loan installments and interest charts.',
-      description: 'A clean financial assistant calculating loan EMIs, total interest, and rendering interactive payment schedules.',
-      tags: ['Angular', 'Financial Engine', 'Forms', 'Data Visualisation'],
+      title: 'Trainee Hit MVP - Rituals & Execution Engine',
+      subtitle: 'Habit Tracking & Daily Routines Workspace',
+      summary: 'A dedicated user workspace for setting daily routines, logging entry details, and tracking traction metrics.',
+      description: 'The execution core of Trainee Hit MVP allowing users to configure custom rituals, log reflections, and maintain accountability streaks.',
+      tags: ['Angular CDK', 'NgRx Signals', 'RxJS', 'CSS Grid', 'Reactive Forms'],
       features: [
-        'Amortization scheduler detailing principal vs interest splits over time.',
-        'Dynamic sliders for loan amount, tenure, and interest rates.',
-        'Detailed printable payment schedule reports.',
-        'Interactive pie charts highlighting principal vs interest percentages.'
+        'Stateful rituals ledger with interactive completion indicators.',
+        'Entry detail modal overlays for comprehensive reflections and notes.',
+        'Offline LocalStorage fallbacks with auto-reconciliation on network reconnect.',
+        'Optimistic UI updates for zero-latency interactions.'
       ],
-      icon: 'bi-percent',
-      color: '#f43f5e',
-      githubUrl: 'https://github.com/ABHISHEKPATEL8839/emi-calculater',
-      liveUrl: 'https://ABHISHEKPATEL8839.github.io/emi-calculater'
+      icon: 'bi-check2-square',
+      color: '#10b981',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/Trainee-hitMvp',
+      liveUrl: 'https://github.com/ABHISHEKPATEL8839/Trainee-hitMvp'
+    },
+    {
+      title: 'Trainee Hit MVP - Analytics & Export Suite',
+      subtitle: 'Data Visualization & XLSX Exporter',
+      summary: 'An analytics module rendering user playbooks, tactic performance, and exporting reports to Excel (XLSX).',
+      description: 'Analytical suite embedded in Trainee Hit MVP for aggregating user performance data, tracking tactic adoption rates, and generating Excel reports.',
+      tags: ['XLSX Export', 'Data Visualization', 'RxJS', 'TypeScript', 'Firebase'],
+      features: [
+        'Single-click XLSX spreadsheet exporter for performance reporting.',
+        'Interactive metrics for tactic conversion and user traction.',
+        'Custom data pipelines aggregating weekly and monthly completion rates.',
+        'Exportable CSV and Excel data tables.'
+      ],
+      icon: 'bi-bar-chart-line-fill',
+      color: '#d946ef',
+      githubUrl: 'https://github.com/ABHISHEKPATEL8839/Trainee-hitMvp',
+      liveUrl: 'https://github.com/ABHISHEKPATEL8839/Trainee-hitMvp'
     }
   ];
+
+  categories = ['All', 'Core SaaS', 'CMS & Admin', 'Rituals Engine', 'Analytics'];
+  selectedCategory = 'All';
+  searchQuery = '';
+
+  get filteredProjects(): Project[] {
+    return this.projects.filter(p => {
+      const matchesCat = this.selectedCategory === 'All' ||
+        (this.selectedCategory === 'Core SaaS' && p.title.includes('Core SaaS')) ||
+        (this.selectedCategory === 'CMS & Admin' && p.title.includes('CMS')) ||
+        (this.selectedCategory === 'Rituals Engine' && p.title.includes('Rituals')) ||
+        (this.selectedCategory === 'Analytics' && p.title.includes('Analytics'));
+
+      const q = this.searchQuery.toLowerCase().trim();
+      const matchesSearch = !q ||
+        p.title.toLowerCase().includes(q) ||
+        p.summary.toLowerCase().includes(q) ||
+        p.tags.some(t => t.toLowerCase().includes(q));
+
+      return matchesCat && matchesSearch;
+    });
+  }
 
   openDialog(project: Project, dialogEl: HTMLDialogElement) {
     this.selectedProject = project;

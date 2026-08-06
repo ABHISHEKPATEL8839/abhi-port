@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "clonewhatsaap-5e9e0"
-  }
+    "default": "new-da04f",
+    "y": "new-da04f"
+  },
+  "targets": {},
+  "etags": {}
 }
