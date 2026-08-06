@@ -24,6 +24,18 @@ import { CommonModule } from '@angular/common';
                  aria-label="GitHub Profile">
                 <i class="bi bi-github"></i>
               </a>
+              <a href="https://linkedin.com" 
+                 target="_blank" 
+                 class="social-btn" 
+                 aria-label="LinkedIn Profile">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="https://twitter.com" 
+                 target="_blank" 
+                 class="social-btn" 
+                 aria-label="Twitter Profile">
+                <i class="bi bi-twitter-x"></i>
+              </a>
               <a href="mailto:abhishekpatel71773@gmail.com" 
                  class="social-btn" 
                  aria-label="Send Email">

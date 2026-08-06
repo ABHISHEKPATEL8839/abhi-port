@@ -6,8 +6,12 @@
   <div class="orb orb-accent"></div>
 </div>
 
+<!-- Custom Fluid Glowing Cursor & Command Palette -->
+<app-custom-cursor></app-custom-cursor>
+<app-command-palette #palette></app-command-palette>
+
 <!-- Header Navigation -->
-<app-navbar></app-navbar>
+<app-navbar (openPalette)="palette.open()"></app-navbar>
 
 <!-- Main Sections -->
 <main>
@@ -16,6 +20,8 @@
   <app-skills id="skills"></app-skills>
   <app-projects id="projects"></app-projects>
   <app-experience id="experience"></app-experience>
+  <app-education id="education"></app-education>
+  <app-services id="services"></app-services>
   <app-contact id="contact"></app-contact>
 </main>
 

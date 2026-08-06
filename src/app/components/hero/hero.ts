@@ -78,7 +78,7 @@ import { CommonModule } from '@angular/common';
             <span class="font-heading small text-muted">developer.config.ts</span>
           </div>
           <code class="font-body small text-cyan">
-            <span class="text-purple">const</span> dev = &#123; name: <span class="text-emerald">'Abhishek Patel'</span>, status: <span class="text-emerald">'Ready to Innovate 🚀'</span> &#125;;
+            <span class="text-purple">const</span> dev = &#123; name: <span class="text-emerald">'Abhishek Patel'</span>, leadProject: <span class="text-emerald">'Trainee Hit MVP 🚀'</span>, stack: <span class="text-emerald">'Angular 21 + Firebase'</span> &#125;;
           </code>
         </div>
       </div>
@@ -337,10 +337,10 @@ import { CommonModule } from '@angular/common';
 })
 export class HeroComponent implements OnInit, OnDestroy {
   phrases = [
-    'Modular Angular Apps',
-    'Real-Time Firebase Systems',
-    'Premium UI Animations',
-    'Scalable API Backends'
+    'Trainee Hit MVP Platform',
+    'Angular 21 & Analog.js Apps',
+    'Real-Time Firebase Backends',
+    'NgRx Signals Architectures'
   ];
 
   currentText = '';

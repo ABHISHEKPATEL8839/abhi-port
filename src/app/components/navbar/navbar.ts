@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -31,7 +31,28 @@ import { CommonModule } from '@angular/common';
                  (click)="closeMenu()">{{ link.label }}</a>
             </li>
           </ul>
-          <div class="ms-lg-3 text-center mt-3 mt-lg-0">
+          
+          <div class="d-flex align-items-center justify-content-center gap-3 ms-lg-4 my-3 my-lg-0">
+            <button class="btn btn-glass btn-sm py-1 px-3 rounded-pill text-light d-flex align-items-center gap-2 palette-trigger-btn"
+                    (click)="onPaletteClick()" 
+                    title="Open Command Palette (Cmd+K / Ctrl+K)">
+              <i class="bi bi-search text-cyan small"></i>
+              <span class="small font-heading d-none d-xl-inline">Search</span>
+              <span class="badge bg-dark border border-secondary-subtle text-muted small px-1.5 py-0.5">⌘K</span>
+            </button>
+
+            <a href="https://github.com/ABHISHEKPATEL8839" target="_blank" class="text-light nav-social-link" aria-label="GitHub">
+              <i class="bi bi-github fs-5"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="text-light nav-social-link" aria-label="LinkedIn">
+              <i class="bi bi-linkedin fs-5"></i>
+            </a>
+            <a href="https://twitter.com" target="_blank" class="text-light nav-social-link" aria-label="Twitter">
+              <i class="bi bi-twitter-x fs-5"></i>
+            </a>
+          </div>
+
+          <div class="ms-lg-4 text-center">
             <a href="#contact" 
                class="btn btn-glow-primary py-2 px-4 navbar-btn" 
                [class.active]="activeSection === 'contact'"
@@ -133,6 +154,17 @@ import { CommonModule } from '@angular/common';
       transform: rotate(90deg);
     }
     
+    .nav-social-link {
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-social-link:hover {
+      opacity: 1;
+      color: var(--color-cyan) !important;
+      transform: translateY(-2px);
+    }
+    
     .transition-all {
       transition: all 0.3s ease;
     }
@@ -158,6 +190,8 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class NavbarComponent {
+  @Output() openPalette = new EventEmitter<void>();
+
   isScrolled = false;
   isMenuOpen = false;
   activeSection = 'hero';
@@ -168,6 +202,8 @@ export class NavbarComponent {
     { href: '#skills', label: 'Skills' },
     { href: '#projects', label: 'Projects' },
     { href: '#experience', label: 'Timeline' },
+    { href: '#education', label: 'Education' },
+    { href: '#services', label: 'Services' },
   ];
 
   @HostListener('window:scroll', [])
@@ -179,7 +215,7 @@ export class NavbarComponent {
   }
 
   private updateActiveSection() {
-    const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'contact'];
+    const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'education', 'services', 'contact'];
     const scrollPosition = window.scrollY + 160; // offset to trigger active state slightly earlier
 
     for (const section of sections) {
@@ -201,6 +237,11 @@ export class NavbarComponent {
 
   closeMenu() {
     this.isMenuOpen = false;
+  }
+
+  onPaletteClick() {
+    this.closeMenu();
+    this.openPalette.emit();
   }
 }
 
