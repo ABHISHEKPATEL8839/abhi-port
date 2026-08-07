@@ -405,7 +405,41 @@ import { CommonModule } from '@angular/common';
     }
 
     .wave-transition .shape-fill {
-      fill: #0b0f19;
+      fill: var(--bg-slate);
+    }
+
+    [data-theme="light"] .floating-pill {
+      color: #0f172a;
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(203, 213, 225, 0.8);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    [data-theme="light"] .dev-terminal-preview {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-color: rgba(203, 213, 225, 0.8);
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    [data-theme="light"] .profile-avatar {
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border-color: rgba(203, 213, 225, 0.8);
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
+    }
+
+    [data-theme="light"] .avatar-status-badge {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    [data-theme="light"] .status-text {
+      color: #0f172a;
+    }
+
+    [data-theme="light"] .status-badge {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(203, 213, 225, 0.8);
+      color: #0f172a;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
     }
 
     /* Keyframe Animations */

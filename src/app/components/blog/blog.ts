@@ -7,7 +7,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   standalone: true,
   imports: [CommonModule, ScrollRevealDirective],
   template: `
-    <section class="section-padding bg-dark position-relative overflow-hidden" id="blog">
+    <section class="section-padding bg-dark-slate position-relative overflow-hidden" id="blog">
       <div class="container">
         <div class="text-center mb-5" appScrollReveal [revealClass]="'reveal reveal-fade'">
           <span class="text-uppercase text-gradient-primary fw-bold letter-spacing-1 font-heading mb-2 d-inline-block">Thoughts & Insights</span>

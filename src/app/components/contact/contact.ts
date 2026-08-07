@@ -189,6 +189,11 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       border-right: 1px solid var(--border-glass);
     }
 
+    [data-theme="light"] .info-panel {
+      background: linear-gradient(135deg, rgba(241, 245, 249, 0.95) 0%, rgba(226, 232, 240, 0.9) 100%);
+      border-right: 1px solid rgba(203, 213, 225, 0.8);
+    }
+
     .contact-method-item {
       transition: transform 0.25s ease;
     }
@@ -289,6 +294,12 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       font-size: 0.95rem;
       transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       margin-top: 5px;
+    }
+
+    [data-theme="light"] .form-input-custom {
+      background: #ffffff;
+      border-color: rgba(203, 213, 225, 0.8);
+      color: #0f172a;
     }
 
     .form-input-custom:focus {

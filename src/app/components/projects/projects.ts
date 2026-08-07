@@ -51,7 +51,7 @@ interface Project {
               <div class="position-relative w-100 w-md-auto" style="min-width: 240px;">
                 <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-cyan"></i>
                 <input type="text" 
-                       class="form-control bg-dark border-secondary-subtle text-light font-body ps-5 rounded-pill shadow-none" 
+                       class="form-control bg-transparent border-secondary-subtle text-light font-body ps-5 rounded-pill shadow-none" 
                        placeholder="Search projects by tech..." 
                        [(ngModel)]="searchQuery">
               </div>
