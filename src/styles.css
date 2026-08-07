@@ -57,6 +57,31 @@
   --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.35);
 }
 
+/* Light Elegant Theme */
+[data-theme="light"] {
+  --bg-deep-space: #f8fafc;       /* Slate-50 */
+  --bg-slate: #f1f5f9;            /* Slate-100 */
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --border-glass: rgba(15, 23, 42, 0.08);
+  --border-glow: rgba(99, 102, 241, 0.15);
+
+  --color-primary: #4f46e5;       /* Indigo-600 */
+  --color-primary-rgb: 79, 70, 229;
+  --color-secondary: #db2777;     /* Pink-600 */
+  --color-secondary-rgb: 219, 39, 119;
+  --color-accent: #059669;        /* Emerald-600 */
+  --color-accent-rgb: 5, 150, 105;
+  --color-cyan: #0891b2;          /* Cyan-600 */
+  --color-cyan-rgb: 8, 145, 178;
+  --color-text-muted: #64748b;    /* Slate-500 */
+  --color-text-light: #0f172a;    /* Slate-900 */
+  
+  --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.12);
+  --shadow-glow-pink: 0 0 25px rgba(219, 39, 119, 0.12);
+  --shadow-glow-cyan: 0 0 25px rgba(8, 145, 178, 0.12);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+}
+
 /* --- Document Defaults --- */
 html {
   scroll-behavior: smooth;
@@ -77,7 +102,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--color-text-light);
 }
 
 /* Custom Scrollbar */
@@ -513,4 +538,33 @@ dialog.glass-dialog.dialog-closing::backdrop {
   transform: scale(0.95) translateY(0) !important;
   transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
+
+/* Font & Contrast Utility Fixes */
+.font-heading {
+  font-family: var(--font-heading) !important;
+}
+
+.font-body {
+  font-family: var(--font-body) !important;
+}
+
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+.text-light {
+  color: var(--color-text-light) !important;
+}
+
+[data-theme="light"] .form-control {
+  background-color: var(--bg-slate) !important;
+  color: var(--color-text-light) !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-theme="light"] .form-control::placeholder {
+  color: var(--color-text-muted) !important;
+}
+
+
 

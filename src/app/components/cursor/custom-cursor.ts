@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -100,38 +100,57 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   private ringX = -100;
   private ringY = -100;
   private animFrameId: number | null = null;
+  private destroyListeners?: () => void;
+
+  constructor(private ngZone: NgZone) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
-      this.render();
+      this.ngZone.runOutsideAngular(() => {
+        const onMouseMove = (e: MouseEvent) => {
+          this.mouseX = e.clientX;
+          this.mouseY = e.clientY;
+
+          if (this.dotRef?.nativeElement) {
+            this.dotRef.nativeElement.style.transform = `translate3d(${this.mouseX}px, ${this.mouseY}px, 0)`;
+          }
+
+          const target = e.target as HTMLElement | null;
+          if (target) {
+            const isInteractive = !!target.closest('a, button, input, textarea, .btn, .glass-panel, .social-btn, [role="button"]');
+            if (this.isHovered !== isInteractive) {
+              this.ngZone.run(() => {
+                this.isHovered = isInteractive;
+              });
+            }
+          }
+        };
+
+        const onMouseDown = () => {
+          this.ngZone.run(() => {
+            this.isClicked = true;
+          });
+        };
+
+        const onMouseUp = () => {
+          this.ngZone.run(() => {
+            this.isClicked = false;
+          });
+        };
+
+        window.addEventListener('mousemove', onMouseMove, { passive: true });
+        window.addEventListener('mousedown', onMouseDown, { passive: true });
+        window.addEventListener('mouseup', onMouseUp, { passive: true });
+
+        this.destroyListeners = () => {
+          window.removeEventListener('mousemove', onMouseMove);
+          window.removeEventListener('mousedown', onMouseDown);
+          window.removeEventListener('mouseup', onMouseUp);
+        };
+
+        this.render();
+      });
     }
-  }
-
-  @HostListener('window:mousemove', ['$event'])
-  onMouseMove(e: MouseEvent) {
-    this.mouseX = e.clientX;
-    this.mouseY = e.clientY;
-
-    if (this.dotRef?.nativeElement) {
-      this.dotRef.nativeElement.style.transform = `translate3d(${this.mouseX}px, ${this.mouseY}px, 0)`;
-    }
-
-    // Check if target or parent is interactive
-    const target = e.target as HTMLElement | null;
-    if (target) {
-      const isInteractive = target.closest('a, button, input, textarea, .btn, .glass-panel, .social-btn, [role="button"]');
-      this.isHovered = !!isInteractive;
-    }
-  }
-
-  @HostListener('window:mousedown')
-  onMouseDown() {
-    this.isClicked = true;
-  }
-
-  @HostListener('window:mouseup')
-  onMouseUp() {
-    this.isClicked = false;
   }
 
   private render() {
@@ -150,6 +169,9 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.animFrameId !== null) {
       cancelAnimationFrame(this.animFrameId);
+    }
+    if (this.destroyListeners) {
+      this.destroyListeners();
     }
   }
 }

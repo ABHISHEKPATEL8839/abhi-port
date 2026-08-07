@@ -1,4 +1,4 @@
-import { Component, HostListener, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, OnDestroy, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -39,6 +39,14 @@ import { CommonModule } from '@angular/common';
               <i class="bi bi-search text-cyan small"></i>
               <span class="small font-heading d-none d-xl-inline">Search</span>
               <span class="badge bg-dark border border-secondary-subtle text-muted small px-1.5 py-0.5">⌘K</span>
+            </button>
+
+            <!-- Theme Toggle Button -->
+            <button class="btn btn-glass btn-sm p-0 rounded-circle text-light d-flex align-items-center justify-content-center theme-toggle-btn"
+                    (click)="toggleTheme()" 
+                    title="Toggle Light / Dark Theme"
+                    style="width: 34px; height: 34px;">
+              <i class="bi" [ngClass]="isLightTheme ? 'bi-moon-stars-fill text-primary' : 'bi-sun-fill text-warning'"></i>
             </button>
 
             <a href="https://github.com/ABHISHEKPATEL8839" target="_blank" class="text-light nav-social-link" aria-label="GitHub">
@@ -123,7 +131,7 @@ import { CommonModule } from '@angular/common';
     
     .nav-link:hover,
     .nav-link.active {
-      color: #ffffff !important;
+      color: var(--color-text-light) !important;
     }
     
     .nav-link::after {
@@ -189,11 +197,12 @@ import { CommonModule } from '@angular/common';
     }
   `]
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
   @Output() openPalette = new EventEmitter<void>();
 
   isScrolled = false;
   isMenuOpen = false;
+  isLightTheme = false;
   activeSection = 'hero';
 
   navLinks = [
@@ -206,28 +215,48 @@ export class NavbarComponent {
     { href: '#services', label: 'Services' },
   ];
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
+  private scrollListener?: () => void;
+
+  constructor(private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {
     if (typeof window !== 'undefined') {
-      this.isScrolled = window.scrollY > 50;
-      this.updateActiveSection();
-    }
-  }
+      this.isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
+      this.ngZone.runOutsideAngular(() => {
+        this.scrollListener = () => {
+          const scrolled = window.scrollY > 50;
+          
+          // Determine active section
+          const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'education', 'services', 'contact'];
+          const scrollPosition = window.scrollY + 160; // offset to trigger active state slightly earlier
+          let newActiveSection = 'hero';
 
-  private updateActiveSection() {
-    const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'education', 'services', 'contact'];
-    const scrollPosition = window.scrollY + 160; // offset to trigger active state slightly earlier
+          for (const section of sections) {
+            const el = document.getElementById(section);
+            if (el) {
+              const top = el.offsetTop;
+              const height = el.offsetHeight;
+              if (scrollPosition >= top && scrollPosition < top + height) {
+                newActiveSection = section;
+                break;
+              }
+            }
+          }
 
-    for (const section of sections) {
-      const el = document.getElementById(section);
-      if (el) {
-        const top = el.offsetTop;
-        const height = el.offsetHeight;
-        if (scrollPosition >= top && scrollPosition < top + height) {
-          this.activeSection = section;
-          break;
-        }
-      }
+          if (this.isScrolled !== scrolled || this.activeSection !== newActiveSection) {
+            this.ngZone.run(() => {
+              this.isScrolled = scrolled;
+              this.activeSection = newActiveSection;
+              this.cdr.detectChanges();
+            });
+          }
+        };
+
+        window.addEventListener('scroll', this.scrollListener, { passive: true });
+        
+        // Initial call
+        this.scrollListener();
+      });
     }
   }
 
@@ -242,6 +271,22 @@ export class NavbarComponent {
   onPaletteClick() {
     this.closeMenu();
     this.openPalette.emit();
+  }
+
+  toggleTheme() {
+    if (typeof document !== 'undefined') {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'cyber';
+      const newTheme = currentTheme === 'light' ? 'cyber' : 'light';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      this.isLightTheme = newTheme === 'light';
+      this.cdr.detectChanges();
+    }
+  }
+
+  ngOnDestroy() {
+    if (typeof window !== 'undefined' && this.scrollListener) {
+      window.removeEventListener('scroll', this.scrollListener);
+    }
   }
 }
 

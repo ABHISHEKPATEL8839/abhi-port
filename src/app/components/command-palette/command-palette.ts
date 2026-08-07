@@ -152,6 +152,7 @@ export class CommandPaletteComponent {
     { id: 'act-github', title: 'Open GitHub Profile', category: 'Actions', icon: 'bi bi-github', action: () => window.open('https://github.com/ABHISHEKPATEL8839', '_blank') },
     
     { id: 'theme-cyber', title: 'Switch Theme: Cyber Midnight (Default)', category: 'Theme', icon: 'bi bi-moon-stars-fill', action: () => this.setTheme('cyber') },
+    { id: 'theme-light', title: 'Switch Theme: Light Elegant', category: 'Theme', icon: 'bi bi-sun-fill', action: () => this.setTheme('light') },
     { id: 'theme-neon', title: 'Switch Theme: Neon Synthwave', category: 'Theme', icon: 'bi bi-palette-fill', action: () => this.setTheme('neon') },
     { id: 'theme-emerald', title: 'Switch Theme: Emerald Matrix', category: 'Theme', icon: 'bi bi-terminal-fill', action: () => this.setTheme('emerald') }
   ];
@@ -252,7 +253,7 @@ export class CommandPaletteComponent {
     alert('Email abhishekpatel71773@gmail.com copied to clipboard!');
   }
 
-  private setTheme(theme: 'cyber' | 'neon' | 'emerald') {
+  private setTheme(theme: 'cyber' | 'light' | 'neon' | 'emerald') {
     document.documentElement.setAttribute('data-theme', theme);
   }
 

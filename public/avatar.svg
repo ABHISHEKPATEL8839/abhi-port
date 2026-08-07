@@ -1,106 +1,231 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
-  <!-- Definitions for gradients and filters -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
   <defs>
-    <!-- Background Gradient -->
-    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#0f172a" />
-      <stop offset="100%" stop-color="#070913" />
+    <!-- Background Gradients -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e1b4b" stop-opacity="0.9" />
+      <stop offset="60%" stop-color="#0f172a" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#030712" stop-opacity="1" />
     </radialGradient>
-    
-    <!-- Neon Indigo Border Gradient -->
-    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6366f1" />
-      <stop offset="50%" stop-color="#06b6d4" />
+
+    <!-- Ring Gradients -->
+    <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="50%" stop-color="#6366f1" />
       <stop offset="100%" stop-color="#d946ef" />
     </linearGradient>
 
-    <!-- Neon Glow Filter -->
-    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="6" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-
-    <filter id="subtleGlow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-
-    <!-- Skin Gradient -->
-    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffdbac" />
-      <stop offset="100%" stop-color="#f1c27d" />
+    <linearGradient id="ringGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="50%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#6366f1" />
     </linearGradient>
 
-    <!-- Hoodie Gradient -->
-    <linearGradient id="hoodieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1e1b4b" />
+    <!-- Skin & Shading Gradients -->
+    <linearGradient id="skinBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffdfc4" />
+      <stop offset="60%" stop-color="#f0c297" />
+      <stop offset="100%" stop-color="#e2aa7c" />
+    </linearGradient>
+
+    <linearGradient id="skinShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d99364" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#b87342" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Hoodie Gradients -->
+    <linearGradient id="hoodieBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <linearGradient id="hoodieHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#6366f1" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#d946ef" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Hair Gradient -->
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="40%" stop-color="#1e293b" />
       <stop offset="100%" stop-color="#0f172a" />
     </linearGradient>
+
+    <!-- Headphone Metallic -->
+    <linearGradient id="headphoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Glasses Lens Glare -->
+    <linearGradient id="lensGlare" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.35" />
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.2" />
+      <stop offset="70%" stop-color="#6366f1" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#d946ef" stop-opacity="0.15" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="glowHeavy" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur1" />
+      <feGaussianBlur stdDeviation="6" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glowSoft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
   </defs>
 
-  <!-- Outer Circle Background -->
-  <circle cx="100" cy="100" r="96" fill="url(#bgGrad)" />
+  <!-- Background Base Canvas -->
+  <circle cx="200" cy="200" r="192" fill="url(#bgGlow)" />
 
-  <!-- Neon Glowing Outer Ring -->
-  <circle cx="100" cy="100" r="95" fill="none" stroke="url(#borderGrad)" stroke-width="3" filter="url(#neonGlow)" />
+  <!-- Holographic Code / Circuit Background Patterns -->
+  <g opacity="0.18">
+    <circle cx="200" cy="200" r="170" fill="none" stroke="#06b6d4" stroke-width="1" stroke-dasharray="4 8" />
+    <circle cx="200" cy="200" r="150" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="12 12" />
+    <circle cx="200" cy="200" r="130" fill="none" stroke="#d946ef" stroke-width="1" stroke-dasharray="2 6" />
 
-  <!-- Background Tech Lines/Hologram Elements -->
-  <g opacity="0.25">
-    <path d="M 30,70 L 60,70 L 70,80 L 100,80" fill="none" stroke="#06b6d4" stroke-width="1.5" />
-    <circle cx="30" cy="70" r="3" fill="#06b6d4" />
-    <path d="M 170,110 L 140,110 L 130,100 L 100,100" fill="none" stroke="#6366f1" stroke-width="1.5" />
-    <circle cx="170" cy="110" r="3" fill="#6366f1" />
-    <text x="140" y="60" fill="#d946ef" font-family="monospace" font-size="8" font-weight="bold">&lt;div&gt;</text>
-    <text x="35" y="140" fill="#06b6d4" font-family="monospace" font-size="8" font-weight="bold">const dev;</text>
+    <!-- Tech Grid Lines -->
+    <path d="M 40,200 L 360,200 M 200,40 L 200,360" stroke="#06b6d4" stroke-width="0.75" stroke-dasharray="5 5" />
+    <path d="M 80,100 L 120,100 L 140,120" fill="none" stroke="#06b6d4" stroke-width="1.5" />
+    <circle cx="80" cy="100" r="3" fill="#06b6d4" />
+    <path d="M 320,100 L 280,100 L 260,120" fill="none" stroke="#d946ef" stroke-width="1.5" />
+    <circle cx="320" cy="100" r="3" fill="#d946ef" />
+    
+    <!-- Floating Tech Tags -->
+    <text x="65" y="145" fill="#06b6d4" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">&lt;TS/&gt;</text>
+    <text x="300" y="145" fill="#d946ef" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold">&#123; ng &#125;</text>
+    <text x="55" y="270" fill="#10b981" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">async =&gt;</text>
+    <text x="305" y="270" fill="#6366f1" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">⚡ RxJS</text>
   </g>
 
-  <!-- Developer Character Group -->
-  <g id="developer">
-    <!-- Hoodie Shoulders / Body -->
-    <path d="M 45,165 C 45,145 60,135 100,135 C 140,135 155,145 155,165 L 145,200 L 55,200 Z" fill="url(#hoodieGrad)" />
+  <!-- Outer Animated Multi-Layer Glow Ring -->
+  <circle cx="200" cy="200" r="188" fill="none" stroke="url(#ringGrad1)" stroke-width="4" filter="url(#glowHeavy)" />
+  <circle cx="200" cy="200" r="184" fill="none" stroke="url(#ringGrad2)" stroke-width="2" opacity="0.8" />
+
+  <!-- Main Developer Character Group -->
+  <g id="developer-character" filter="url(#dropShadow)">
     
-    <!-- Neon Seams on Hoodie -->
-    <path d="M 65,152 C 75,147 85,145 100,145 C 115,145 125,147 135,152" fill="none" stroke="#06b6d4" stroke-width="1.5" filter="url(#subtleGlow)" />
-    <path d="M 98,145 L 98,190" fill="none" stroke="#d946ef" stroke-width="1" filter="url(#subtleGlow)" />
-
-    <!-- Head / Neck -->
-    <rect x="88" y="110" width="24" height="30" rx="5" fill="url(#skinGrad)" />
-    <!-- Chin/Face -->
-    <path d="M 72,85 C 72,115 80,128 100,128 C 120,128 128,115 128,85 C 128,75 120,60 100,60 C 80,60 72,75 72,85 Z" fill="url(#skinGrad)" />
-
-    <!-- Hair (Stylish Dark Hair with Volume) -->
-    <path d="M 68,80 C 65,65 75,48 95,48 C 115,48 132,60 132,75 C 130,73 125,72 120,72 C 120,72 110,62 98,62 C 85,62 75,75 68,80 Z" fill="#1e293b" />
-    <path d="M 70,78 C 72,62 82,53 98,53 C 112,53 128,63 128,75 C 125,70 115,67 105,67 C 92,67 80,75 70,78 Z" fill="#0f172a" />
-
-    <!-- Beard / Stubble -->
-    <path d="M 72,90 C 72,112 80,128 100,128 C 120,128 128,112 128,90 C 128,95 125,115 120,118 C 115,123 108,124 100,124 C 92,124 85,123 80,118 C 75,115 72,95 72,90 Z" fill="#334155" opacity="0.75" />
-
-    <!-- Eyes (Simple, stylized) -->
-    <ellipse cx="88" cy="88" rx="3" ry="2" fill="#1e293b" />
-    <ellipse cx="112" cy="88" rx="3" ry="2" fill="#1e293b" />
+    <!-- Hoodie Body & Shoulders -->
+    <path d="M 80,340 C 80,280 120,265 200,265 C 280,265 320,280 320,340 L 335,400 L 65,400 Z" fill="url(#hoodieBody)" />
     
-    <!-- Eyebrows -->
-    <path d="M 80,82 C 84,80 92,82 94,84" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" />
-    <path d="M 120,82 C 116,80 108,82 106,84" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" />
+    <!-- Hoodie Inner Collar / Shadow -->
+    <path d="M 135,270 Q 200,310 265,270 Q 200,325 135,270 Z" fill="#090d16" />
 
-    <!-- Glasses (Neon Blue Glowing Circular Frames) -->
-    <circle cx="88" cy="89" r="13" fill="none" stroke="#06b6d4" stroke-width="2" filter="url(#subtleGlow)" />
-    <circle cx="112" cy="89" r="13" fill="none" stroke="#06b6d4" stroke-width="2" filter="url(#subtleGlow)" />
-    <line x1="101" y1="89" x2="109" y2="89" stroke="#06b6d4" stroke-width="2" filter="url(#subtleGlow)" />
-    <!-- Glasses Temples -->
-    <path d="M 75,89 L 71,85" stroke="#06b6d4" stroke-width="1.5" />
-    <path d="M 125,89 L 129,85" stroke="#06b6d4" stroke-width="1.5" />
-    <!-- Glasses Reflections -->
-    <path d="M 78,85 Q 85,80 92,85" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5" />
-    <path d="M 102,85 Q 109,80 116,85" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5" />
+    <!-- Neon Cyber Strings / Drawstrings -->
+    <path d="M 165,275 L 162,335" stroke="url(#ringGrad1)" stroke-width="3" stroke-linecap="round" filter="url(#glowSoft)" />
+    <path d="M 235,275 L 238,335" stroke="url(#ringGrad1)" stroke-width="3" stroke-linecap="round" filter="url(#glowSoft)" />
+    <circle cx="162" cy="337" r="3.5" fill="#06b6d4" />
+    <circle cx="238" cy="337" r="3.5" fill="#d946ef" />
 
-    <!-- Smile (Subtle and friendly) -->
-    <path d="M 94,106 Q 100,111 106,106" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" />
+    <!-- Hoodie Chest Logo Emblem (<DEV/>) -->
+    <rect x="175" y="315" width="50" height="22" rx="6" fill="rgba(6, 182, 212, 0.12)" stroke="#06b6d4" stroke-width="1" />
+    <text x="200" y="330" text-anchor="middle" fill="#06b6d4" font-family="monospace" font-size="10" font-weight="900" letter-spacing="1">DEV</text>
+
+    <!-- Headphones Around Neck -->
+    <!-- Headphone Cushion Band -->
+    <path d="M 125,245 C 125,285 275,285 275,245" fill="none" stroke="url(#headphoneGrad)" stroke-width="18" stroke-linecap="round" />
+    <path d="M 125,245 C 125,285 275,285 275,245" fill="none" stroke="#0f172a" stroke-width="12" stroke-linecap="round" />
+    <!-- Ear Cups (Left & Right) -->
+    <rect x="110" y="225" width="28" height="42" rx="10" fill="url(#headphoneGrad)" stroke="#334155" stroke-width="2" />
+    <rect x="262" y="225" width="28" height="42" rx="10" fill="url(#headphoneGrad)" stroke="#334155" stroke-width="2" />
+    <!-- Ear Cup LED Status Ring -->
+    <circle cx="124" cy="246" r="7" fill="none" stroke="#10b981" stroke-width="2" filter="url(#glowSoft)" />
+    <circle cx="276" cy="246" r="7" fill="none" stroke="#10b981" stroke-width="2" filter="url(#glowSoft)" />
+
+    <!-- Neck -->
+    <path d="M 168,205 L 168,255 C 168,265 232,265 232,255 L 232,205 Z" fill="url(#skinBase)" />
+    <!-- Neck Shadow -->
+    <path d="M 168,205 Q 200,225 232,205 L 232,230 Q 200,250 168,230 Z" fill="url(#skinShadow)" />
+
+    <!-- Ears -->
+    <ellipse cx="140" cy="170" rx="10" ry="16" fill="url(#skinBase)" />
+    <ellipse cx="140" cy="170" rx="6" ry="10" fill="#e2aa7c" opacity="0.6" />
+    <ellipse cx="260" cy="170" rx="10" ry="16" fill="url(#skinBase)" />
+    <ellipse cx="260" cy="170" rx="6" ry="10" fill="#e2aa7c" opacity="0.6" />
+
+    <!-- Face Structure / Head Base -->
+    <path d="M 142,140 C 142,210 160,228 200,228 C 240,228 258,210 258,140 C 258,100 240,85 200,85 C 160,85 142,100 142,140 Z" fill="url(#skinBase)" />
+
+    <!-- Jawline & Cheek Shading -->
+    <path d="M 144,160 C 144,205 162,222 200,222 C 238,222 256,205 256,160 C 256,180 238,226 200,226 C 162,226 144,180 144,160 Z" fill="url(#skinShadow)" opacity="0.4" />
+
+    <!-- Stylish Modern Beard / Stubble Layer -->
+    <path d="M 143,165 C 143,208 160,228 200,228 C 240,228 257,208 257,165 C 257,185 248,220 200,220 C 152,220 143,185 143,165 Z" fill="#334155" opacity="0.55" />
+    <!-- Mustache -->
+    <path d="M 180,192 Q 200,186 220,192 Q 200,200 180,192 Z" fill="#334155" opacity="0.6" />
+
+    <!-- Eyes -->
+    <!-- Left Eye -->
+    <ellipse cx="172" cy="155" rx="9" ry="6" fill="#ffffff" />
+    <circle cx="173" cy="155" r="4.5" fill="#0f172a" />
+    <circle cx="173" cy="155" r="2.5" fill="#06b6d4" />
+    <circle cx="171" cy="153" r="1.5" fill="#ffffff" />
+
+    <!-- Right Eye -->
+    <ellipse cx="228" cy="155" rx="9" ry="6" fill="#ffffff" />
+    <circle cx="227" cy="155" r="4.5" fill="#0f172a" />
+    <circle cx="227" cy="155" r="2.5" fill="#06b6d4" />
+    <circle cx="225" cy="153" r="1.5" fill="#ffffff" />
+
+    <!-- Eyebrows (Strong, Modern Curved Eyebrows) -->
+    <path d="M 158,142 C 166,137 180,139 186,143" fill="none" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M 242,142 C 234,137 220,139 214,143" fill="none" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round" />
+
+    <!-- Nose -->
+    <path d="M 200,150 L 197,170 Q 200,174 203,170 Z" fill="#d99364" opacity="0.7" />
+
+    <!-- Confident Smile -->
+    <path d="M 184,196 Q 200,208 216,196" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round" />
+    <path d="M 188,197 Q 200,204 212,197" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" />
+
+    <!-- Glasses (Sleek Matte Black Frames with Blue Light Glare) -->
+    <!-- Frame Outline Left -->
+    <rect x="153" y="139" width="38" height="30" rx="8" fill="url(#lensGlare)" stroke="#0f172a" stroke-width="3.5" />
+    <rect x="153" y="139" width="38" height="30" rx="8" fill="none" stroke="#06b6d4" stroke-width="1.5" filter="url(#glowSoft)" />
+
+    <!-- Frame Outline Right -->
+    <rect x="209" y="139" width="38" height="30" rx="8" fill="url(#lensGlare)" stroke="#0f172a" stroke-width="3.5" />
+    <rect x="209" y="139" width="38" height="30" rx="8" fill="none" stroke="#06b6d4" stroke-width="1.5" filter="url(#glowSoft)" />
+
+    <!-- Bridge -->
+    <path d="M 191,148 Q 200,145 209,148" fill="none" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M 191,148 Q 200,145 209,148" fill="none" stroke="#06b6d4" stroke-width="1.5" filter="url(#glowSoft)" />
+
+    <!-- Side Temples -->
+    <path d="M 153,148 L 138,144" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M 247,148 L 262,144" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round" />
+
+    <!-- Lens Specular Glare Reflection Streak -->
+    <path d="M 158,143 L 180,165" stroke="#ffffff" stroke-width="2" opacity="0.4" stroke-linecap="round" />
+    <path d="M 214,143 L 236,165" stroke="#ffffff" stroke-width="2" opacity="0.4" stroke-linecap="round" />
+
+    <!-- Modern Hair (Textured Modern Quiff / Pompadour with Volume) -->
+    <!-- Main Dark Hair Base -->
+    <path d="M 138,135 C 132,105 145,65 180,58 C 215,50 250,68 262,105 C 265,120 262,135 258,142 C 254,122 248,110 240,105 C 228,95 205,92 190,98 C 175,104 155,115 148,130 Z" fill="url(#hairGrad)" />
+    
+    <!-- Hair Volume Clusters & Strands -->
+    <path d="M 145,115 C 140,85 160,60 195,54 C 230,48 262,70 265,100 C 255,80 235,68 200,68 C 170,68 152,90 145,115 Z" fill="#1e293b" />
+    <path d="M 160,75 C 175,60 215,55 245,72 C 230,62 195,60 170,70 Z" fill="#475569" opacity="0.6" />
+    
+    <!-- Fine Front Wave Strands -->
+    <path d="M 148,125 C 158,105 185,95 210,102 C 185,95 162,105 152,128 Z" fill="#334155" />
+    <path d="M 175,62 Q 205,52 235,68" stroke="#06b6d4" stroke-width="1" opacity="0.4" fill="none" filter="url(#glowSoft)" />
+
   </g>
 </svg>
